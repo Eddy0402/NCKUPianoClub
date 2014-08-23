@@ -1,55 +1,91 @@
-<?php echo $this->doctype(); ?>
+<?php echo $this -> doctype(); ?>
 
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+		<?php echo $this -> headTitle( 'ZF2 ' . $this -> translate( 'Skeleton Application' ) ) -> setSeparator( ' - ' ) -> setAutoEscape( false ) ?>
 
-        <?php echo $this->headMeta()
-            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
-            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
-        ?>
+		<?php
+		echo $this -> headMeta()
+			-> appendName( 'viewport', 'width=device-width, initial-scale=1.0' )
+			-> appendHttpEquiv( 'X-UA-Compatible', 'IE=edge' )
+		?>
 
         <!-- Le styles -->
-        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
-                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+		<?php
+		echo $this -> headLink( array( 'rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this -> basePath() . '/img/favicon.ico' ) )
+			-> prependStylesheet( $this -> basePath() . '/css/style.css' )
+			-> prependStylesheet( $this -> basePath() . '/css/bootstrap-theme.min.css' )
+			-> prependStylesheet( $this -> basePath() . '/css/bootstrap.min.css' )
+		?>
 
         <!-- Scripts -->
-        <?php echo $this->headScript()
-            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
-            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
-            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
+		<?php
+		echo $this -> headScript()
+			-> prependFile( $this -> basePath() . '/js/bootstrap.min.js' )
+			-> prependFile( $this -> basePath() . '/js/jquery.min.js' )
+			-> prependFile( $this -> basePath() . '/js/respond.min.js', 'text/javascript', array( 'conditional' => 'lt IE 9', ) )
+			-> prependFile( $this -> basePath() . '/js/html5shiv.js', 'text/javascript', array( 'conditional' => 'lt IE 9', ) )
+		;
+		?>
 
     </head>
-    <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <body style="padding: 82px;">
+		<nav class="navbar navbar-static-top navbar-fixed-top  navbar-default" role="navigation">
             <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <div class="navbar-header" style="padding:10px">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Skeleton Application') ?></a>
-                </div>
+                    <a class="navbar-brand" href="<?php echo $this -> url( 'home' ) ?>"><img src="<?php echo $this -> basePath( 'img/zf2-logo.png' ) ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this -> translate( 'Piano Club' ) ?></a>
+				</div>
+
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                    </ul>
-                </div><!--/.nav-collapse -->
+                    <ul class="nav navbar-nav" style="padding:10px">
+                        <li><a href="<?php echo $this -> url( 'home' ) ?>"><?php echo $this -> translate( 'Activity' ) ?></a></li>
+                        <li><a href="<?php echo $this -> url( 'home' ) ?>"><?php echo $this -> translate( 'Overview' ) ?></a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown navbar-right">	
+						<?php $login = array( 'name' => '吳子晨'); ?>
+							<?php if ( is_null($login) ) { ?>							
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<span class="glyphicon glyphicon-log-in"> 
+									<?php echo $this -> translate( 'Login' ) ?> 
+									<!--<span class="glyphicon glyphicon-chevron-down"></span>-->
+								</a>
+								<ul class="dropdown-menu" role="menu">
+									<?php //php echo $this->form(); ?>
+								</ul>
+							<?php } else { ?>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<img src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xap1/t1.0-9/1380776_581815175213582_571785533_n.jpg"  class="img-circle" height="32px" width="32px"> 
+									<?php echo $login['name'] ?>　
+									<span class="glyphicon glyphicon-chevron-down"></span>
+								</a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href=""> <?php echo $this->translate('Piano Room'); ?></a></li>
+									<li><a href=""> <?php echo $this->translate('Sheet Music'); ?></a></li>
+									<li class="divider"></li>
+									<li><a href=""> <?php echo $this->translate('Settings'); ?></a></li>
+									<li><a href=""> <?php echo $this->translate('Logout'); ?></a></li>
+								</ul>
+							<?php } ?>
+						</li>
+					</ul>
+                </div>
+
             </div>
         </nav>
         <div class="container">
-            <?php echo $this->content; ?>
+		<?php echo $this -> content; ?>
             <hr>
-            <footer>
-                <p>&copy; <?php echo date('Y') ?>  NCKU Piano Club <?php echo $this->translate('All rights reserved.') ?></p>
-            </footer>
+            <div class="panel">
+                <p class="text-center"> &copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?></p>
+            </div>
         </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+<?php echo $this -> inlineScript() ?>
     </body>
 </html>

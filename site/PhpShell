@@ -1,0 +1,2 @@
+alias zf='php vendor/zendframework/zftool/zf.php'
+alias composer='php composer.phar'
