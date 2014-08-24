@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-24 00:32+0800\n"
-"PO-Revision-Date: 2014-08-24 00:32+0800\n"
+"POT-Creation-Date: 2014-08-25 01:17+0800\n"
+"PO-Revision-Date: 2014-08-25 01:17+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -15,43 +15,59 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#: ../view/layout/loginwidget.phtml:4
+msgid "Sign In"
+msgstr "登入"
+
+#: ../view/layout/loginwidget.phtml:23
+msgid "Sign in"
+msgstr "登入"
+
 #: ../view/layout/layout.phtml:6
 msgid "Skeleton Application"
-msgstr "框架應用"
+msgstr "空專案"
 
-#: ../view/layout/layout.phtml:43
+#: ../view/layout/layout.phtml:42
 msgid "Piano Club"
 msgstr "鋼琴社"
 
-#: ../view/layout/layout.phtml:48 ../view/application/index/index.phtml:13
+#: ../view/layout/layout.phtml:47 ../view/application/index/index.phtml:17
 msgid "Activity"
 msgstr "最新活動"
 
-#: ../view/layout/layout.phtml:49
+#: ../view/layout/layout.phtml:48
 msgid "Overview"
 msgstr "簡介"
 
-#: ../view/layout/layout.phtml:55
+#: ../view/layout/layout.phtml:50
+msgid "Sign up!"
+msgstr "加入鋼琴社"
+
+#: ../view/layout/layout.phtml:58
 msgid "Login"
 msgstr "登入"
 
-#: ../view/layout/layout.phtml:65
+#: ../view/layout/layout.phtml:73
+msgid "Profile"
+msgstr "個人資料"
+
+#: ../view/layout/layout.phtml:74
 msgid "Piano Room"
 msgstr "琴點系統"
 
-#: ../view/layout/layout.phtml:66
+#: ../view/layout/layout.phtml:75
 msgid "Sheet Music"
 msgstr "琴譜"
 
-#: ../view/layout/layout.phtml:68
+#: ../view/layout/layout.phtml:77
 msgid "Settings"
 msgstr "設定"
 
-#: ../view/layout/layout.phtml:69
+#: ../view/layout/layout.phtml:78
 msgid "Logout"
 msgstr "登出"
 
-#: ../view/layout/layout.phtml:82
+#: ../view/layout/layout.phtml:90 ../view/application/index/index.phtml:4
 msgid "NCKU Piano Club"
 msgstr "成功大學鋼琴社"
 
@@ -120,24 +136,28 @@ msgstr "Controller"
 msgid "resolves to %s"
 msgstr "解析為： %s"
 
-#: ../view/application/index/index.phtml:2
-#, php-format
-msgid "Welcome to %s NCKU Piano Club %s"
-msgstr "歡迎來到%s成大鋼琴社%s"
-
-#: ../view/application/index/index.phtml:3
-#: ../view/application/index/index.phtml:16
-#: ../view/application/index/index.phtml:27
-msgid " "
-msgstr " "
-
-#: ../view/application/index/index.phtml:5
+#: ../view/application/index/index.phtml:7
 msgid "GitHub"
 msgstr "Github"
 
-#: ../view/application/index/index.phtml:24
+#: ../view/application/index/index.phtml:20
+#: ../view/application/index/index.phtml:30
+msgid " "
+msgstr " "
+
+#: ../view/application/index/index.phtml:27
 msgid "Recent Activity"
 msgstr "框架應用"
+
+#~ msgid "Not registered?"
+#~ msgstr "尚未加入？"
+
+#, fuzzy
+#~ msgid "%s NCKU Piano Club %s"
+#~ msgstr "成功大學鋼琴社"
+
+#~ msgid "Welcome to %s NCKU Piano Club %s"
+#~ msgstr "歡迎來到%s成大鋼琴社%s"
 
 #~ msgid "Follow Development"
 #~ msgstr "關注開發"

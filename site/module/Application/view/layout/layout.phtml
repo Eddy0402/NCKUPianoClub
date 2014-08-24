@@ -30,10 +30,10 @@
 		?>
 
     </head>
-    <body style="padding: 82px;">
-		<nav class="navbar navbar-static-top navbar-fixed-top  navbar-default" role="navigation">
+    <body>
+		<nav class="navbar navbar-static-top navbar-fixed-top navbar-default" role="navigation">
             <div class="container">
-                <div class="navbar-header" style="padding:10px">
+                <div class="navbar-header" style="padding:4px">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -43,49 +43,52 @@
 				</div>
 
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav" style="padding:10px">
+                    <ul class="nav navbar-nav" style="padding:4px">
                         <li><a href="<?php echo $this -> url( 'home' ) ?>"><?php echo $this -> translate( 'Activity' ) ?></a></li>
                         <li><a href="<?php echo $this -> url( 'home' ) ?>"><?php echo $this -> translate( 'Overview' ) ?></a></li>
+						<?php if(! $this->zfcUserIdentity()): ?>
+							<li><a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a></li>
+						<?php endif?>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown navbar-right">	
-						<?php $login = array( 'name' => '吳子晨'); ?>
-							<?php if ( is_null($login) ) { ?>							
+							<?php if(! $this->zfcUserIdentity()): ?>						
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 									<span class="glyphicon glyphicon-log-in"> 
 									<?php echo $this -> translate( 'Login' ) ?> 
 									<!--<span class="glyphicon glyphicon-chevron-down"></span>-->
 								</a>
-								<ul class="dropdown-menu" role="menu">
-									<?php //php echo $this->form(); ?>
-								</ul>
-							<?php } else { ?>
+								
+								<?php echo $this->zfcUserLoginWidget(array('redirect'=>'home')); ?>
+
+							<?php else: ?>
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-									<img src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xap1/t1.0-9/1380776_581815175213582_571785533_n.jpg"  class="img-circle" height="32px" width="32px"> 
-									<?php echo $login['name'] ?>　
+									<!--
+										<img src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xap1/t1.0-9/1380776_581815175213582_571785533_n.jpg"  class="img-circle" height="32px" width="32px"> 
+									-->
+									<?php echo $this->zfcUserIdentity()->getDisplayname(); ?>　
 									<span class="glyphicon glyphicon-chevron-down"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
+									<li><a href="<?php echo $this -> url( 'zfcuser' );?>"> <?php echo $this->translate('Profile'); ?></a></li>
 									<li><a href=""> <?php echo $this->translate('Piano Room'); ?></a></li>
 									<li><a href=""> <?php echo $this->translate('Sheet Music'); ?></a></li>
 									<li class="divider"></li>
 									<li><a href=""> <?php echo $this->translate('Settings'); ?></a></li>
-									<li><a href=""> <?php echo $this->translate('Logout'); ?></a></li>
+									<li><a href="<?php echo $this->url('zfcuser/logout') ?>"> <?php echo $this->translate('Logout'); ?></a></li>
 								</ul>
-							<?php } ?>
+							<?php endif ?>
 						</li>
 					</ul>
                 </div>
 
             </div>
-        </nav>
-        <div class="container">
-		<?php echo $this -> content; ?>
-            <hr>
-            <div class="panel">
-                <p class="text-center"> &copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?></p>
-            </div>
-        </div> <!-- /container -->
+        </nav>        
+		<?php echo $this -> content; ?>		
+        <hr>
+        <div class="panel">
+            <p class="text-center"> &copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?></p>
+        </div>
 <?php echo $this -> inlineScript() ?>
     </body>
 </html>
