@@ -2,22 +2,56 @@
 return array(
 	'controllers' => array(
 		'invokables' => array(
-			'ReservePianoRoom\Controller\ReservePianoRoom' => 'ReservePianoRoom\Controller\ReservePianoRoomController',
+			'ReservePianoRoom\Controller\ViewReserveTable' => 'ReservePianoRoom\Controller\ViewReserveTableController',
+			'ReservePianoRoom\Controller\ViewReserveTableData' => 'ReservePianoRoom\Controller\ViewReserveTableDataController',
+			'ReservePianoRoom\Controller\ModifyReserveTable' => 'ReservePianoRoom\Controller\ModifyReserveTableController',
 		),
+	),
+	
+	'translator' => array(
+		'translation_file_patterns' => array(
+			array(
+				'type' => 'gettext',
+				'base_dir' => __DIR__ . '/../language',
+				'pattern' => '%s.mo',
+			),
+		),
+		'locale' => 'zh_TW',
 	),
 	
 	'router' => array(
 		'routes' => array(
-			'ReservePianoRoom' => array(
+			'ViewReserveTable' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route' => '/ReservePianoRoom[/][:action]',
+					'route' => '/ReservePianoRoom/',
+					'defaults' => array(
+						'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
+						'action' => 'view',
+					),
+				),
+			),
+			'ViewReserveTableData' => array(
+				'type' => 'Segment',
+				'options' => array(
+					'route' => '/ReservePianoRoom/page/:page/',
 					'constraints' => array(
-						'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+						'page'   => '[-0-9]*',
 					),
 					'defaults' => array(
-						'controller' => 'ReservePianoRoom\Controller\ReservePianoRoom',
-						'action' => 'index',
+						'controller' => 'ReservePianoRoom\Controller\ViewReserveTableData',
+						'action' => 'view',
+						'page' => 0,
+					),
+				),
+			),
+			'ModifyReserveTable' => array(
+				'type' => 'Literal',
+				'options' => array(
+					'route' => '/ReservePianoRoom/insert[/]',
+					'defaults' => array(
+						'controller' => 'ReservePianoRoom\Controller\ModifyReserveTable',
+						'action' => 'insert',
 					),
 				),
 			),

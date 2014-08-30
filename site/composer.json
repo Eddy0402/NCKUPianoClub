@@ -9,8 +9,7 @@
     "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.3.*",
-        "zendframework/zftool": "dev-master",
-        "zf-commons/zfc-user": "dev-master"
+        "zendframework/zendframework": "2.*",
+		"socalnick/scn-social-auth": "dev-master"
     }
 }

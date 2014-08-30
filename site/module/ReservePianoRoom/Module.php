@@ -1,8 +1,8 @@
 <?php
 namespace ReservePianoRoom;
 
-use ReservePianoRoom\Model\User;
-use ReservePianoRoom\Model\UserTable;
+use ReservePianoRoom\Model\Record;
+use ReservePianoRoom\Model\ReserveTable;
 use Zend\Db\ResultSet\ResultSet;
  use Zend\Db\TableGateway\TableGateway;
 
@@ -25,16 +25,16 @@ class Module
 	public function getServiceConfig(){
 		return array(
 			'factories' => array(
-				'ReservePianoRoom\Model\UserTable' => function($sm) {
-					$tableGateway = $sm -> get('UserTableGateway');
-					$table = new UserTable($tableGateway);
+				'ReservePianoRoom\Model\ReserveTable' => function($sm) {
+					$tableGateway = $sm -> get('ReserveTableGateway');
+					$table = new ReserveTable($tableGateway);
 					return $table;
 				},
-				'UserTableGateway' => function($sm){
+				'ReserveTableGateway' => function($sm){
 					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
-					$resultSetPrototype ->setArrayObjectPrototype(new User());
-					return new TableGateway('UserTable',$dbAdapter,null,$resultSetPrototype);
+					$resultSetPrototype ->setArrayObjectPrototype(new Record());
+					return new TableGateway('ReserveTable',$dbAdapter,null,$resultSetPrototype);
 				},
 			),
 		);
