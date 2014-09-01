@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-		<?php echo $this -> headTitle( 'ZF2 ' . $this -> translate( 'Skeleton Application' ) ) -> setSeparator( ' - ' ) -> setAutoEscape( false ) ?>
+		<?php echo $this -> headTitle( $this -> translate( 'NCKU Piano Club' ) ) -> setSeparator( ' - ' ) -> setAutoEscape( false ) ?>
 
 		<?php
 		echo $this -> headMeta()
@@ -28,7 +28,7 @@
 			-> prependFile( $this -> basePath() . '/js/html5shiv.js', 'text/javascript', array( 'conditional' => 'lt IE 9', ) )
 		;
 		?>
-		
+	
     </head>
     <body>
 		<nav class="navbar navbar-static-top navbar-fixed-top navbar-default" role="navigation">
@@ -66,15 +66,20 @@
 									<!--
 										<img src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-xap1/t1.0-9/1380776_581815175213582_571785533_n.jpg"  class="img-circle" height="32px" width="32px"> 
 									-->
+									<?php
+										echo $avatar = $this->gravatar($this->zfcUserIdentity()->getEmail(),
+											array(),
+											array('width'=>'32px','height'=>'32px'));
+									?>
 									<?php echo $this->zfcUserIdentity()->getDisplayname(); ?>　
 									<span class="glyphicon glyphicon-chevron-down"></span>
 								</a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="<?php echo $this -> url( 'zfcuser' );?>"> <?php echo $this->translate('Profile'); ?></a></li>
-									<li><a href=""> <?php echo $this->translate('Piano Room'); ?></a></li>
-									<li><a href=""> <?php echo $this->translate('Sheet Music'); ?></a></li>
+									<li><a href="<?php echo $this->url('ViewReserveTable');?>"> <?php echo $this->translate('Piano Room'); ?></a></li>
+									<li class="hidden"><a href=""> <?php echo $this->translate('Sheet Music'); ?></a></li>
 									<li class="divider"></li>
-									<li><a href=""> <?php echo $this->translate('Settings'); ?></a></li>
+									<li><a href="<?php echo $this -> url( 'zfcuser/changepassword' );?>"> <?php echo $this->translate('Settings'); ?></a></li>
 									<li><a href="<?php echo $this->url('zfcuser/logout') ?>"> <?php echo $this->translate('Logout'); ?></a></li>
 								</ul>
 							<?php endif ?>
@@ -85,10 +90,11 @@
             </div>
         </nav>        
 		<?php echo $this -> content; ?>		
-        <hr>
-        <div class="panel">
-            <p class="text-center"> &copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?></p>
-        </div>
+		<div class="footer ">
+			<div class="container">
+			  <p class="text-muted text-center">&copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?></p>
+			</div>
+		</div>
 <?php echo $this -> inlineScript() ?>
     </body>
 </html>

@@ -2,6 +2,8 @@
 
 namespace ReservePianoRoom\Model;
 
+use User\Model\User;
+
 class Record
 {
 
@@ -10,8 +12,10 @@ class Record
 	public $date;
 	public $class;
 	public $uid;
-	public $flag;
-	public $comment;
+	public $flag = "";
+	public $comment = "";
+	
+	public $userData;
 
 	public function exchangeArray( $data ) {
 		$this -> reserve_id = (!empty( $data[ 'reserve_id' ] )) ? $data[ 'reserve_id' ] : null;
@@ -21,6 +25,8 @@ class Record
 		$this -> uid = (!empty( $data[ 'uid' ] )) ? $data[ 'uid' ] : null;
 		$this -> flag = (!empty( $data[ 'flag' ] )) ? $data[ 'flag' ] : null;
 		$this -> comment = (!empty( $data[ 'comment' ] )) ? $data[ 'comment' ] : null;
+		$this -> userData = new User();
+		$this -> userData -> exchangeArray($data);
 	}
 
 }

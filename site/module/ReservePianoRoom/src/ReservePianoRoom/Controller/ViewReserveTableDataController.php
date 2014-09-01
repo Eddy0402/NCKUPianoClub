@@ -9,6 +9,7 @@ class ViewReserveTableDataController extends AbstractActionController
 {
 	public function viewAction(){
 		$page = $this->params()->fromRoute('page',0);
+		$room = $this->params()->fromRoute('room',0);
 		
 		$first = new \DateTime('this week');
 		$last = new \DateTime('this week +6 days');
@@ -21,6 +22,8 @@ class ViewReserveTableDataController extends AbstractActionController
 			'page' => $page,
 			'first' => $first,
 			'last' => $last,
+			'room' => $room,
+			'reservable' => ($page == "1" ? "true" : "false"),
 		));
 		
 		$viewModel->setTerminal(true);

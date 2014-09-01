@@ -34,24 +34,33 @@ return array(
 			'ViewReserveTableData' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route' => '/ReservePianoRoom/page/:page/',
+					'route' => '/ReservePianoRoom/page/:page/[room/:room/]',
 					'constraints' => array(
 						'page'   => '[-0-9]*',
+						'room'   => '[1-3]',
 					),
 					'defaults' => array(
 						'controller' => 'ReservePianoRoom\Controller\ViewReserveTableData',
 						'action' => 'view',
 						'page' => 0,
+						'room' => 1,
 					),
 				),
 			),
 			'ModifyReserveTable' => array(
-				'type' => 'Literal',
+				'type' => 'Segment',
 				'options' => array(
-					'route' => '/ReservePianoRoom/insert[/]',
+					'route' => '/ReservePianoRoom/m/d/:date/c/:class/r/:room/[c/:cancel/]',
+					'constraints' => array(
+						'date'   => '[-0-9]*',
+						'class'  => '[0-9]+',
+						'room'   => '[1-3]+',
+						'cancel' => '[a-z]+',
+					),
 					'defaults' => array(
 						'controller' => 'ReservePianoRoom\Controller\ModifyReserveTable',
-						'action' => 'insert',
+						'action' => 'modify',
+						'cancel' => 'false',
 					),
 				),
 			),

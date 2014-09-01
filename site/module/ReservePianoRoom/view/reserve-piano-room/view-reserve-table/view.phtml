@@ -3,36 +3,62 @@
 	$this->headTitle($title);
 ?>
 
-<script> 
+<script> 	
 	var content_0 = -1;
 	var content_1 = 0;
 	var content_2 = 1;
-    $(function(){
-		$("#content-0").load("page/"+content_0+"/"); 
-		$("#content-1").load("page/"+content_1+"/"); 
-		$("#content-2").load("page/"+content_2+"/"); 
+	var room = 1;
 		
-		$('#myCarousel').on('slide.bs.carousel', function (e) {
+    $(function(){
+		
+		// Slide load
+		$("#content-0").load("page/"+content_0+"/room/"+room+"/"); 
+		$("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
+		$("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
+		
+		$("#myCarousel").on('slide.bs.carousel', function (e) {
 			var slideFrom = $(this).find('.active').index();
 			var slideTo = $(e.relatedTarget).index();
 			if(slideTo === 0){
 				content_2 = content_0 - 1;
 				content_1 = content_0 + 1;
-				if(slideFrom !== 1) $("#content-1").load("page/"+content_1+"/"); 
-				if(slideFrom !== 2) $("#content-2").load("page/"+content_2+"/"); 
+				if(slideFrom !== 1) $("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
+				if(slideFrom !== 2) $("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
 			}else if(slideTo === 1){
 				content_0 = content_1 - 1;
 				content_2 = content_1 + 1;
-				if(slideFrom !== 0) $("#content-0").load("page/"+content_0+"/"); 
-				if(slideFrom !== 2) $("#content-2").load("page/"+content_2+"/"); 
+				if(slideFrom !== 0) $("#content-0").load("page/"+content_0+"/room/"+room+"/"); 
+				if(slideFrom !== 2) $("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
 			}else{
 				content_0 = content_2 + 1;
 				content_1 = content_2 - 1;
-				if(slideFrom !== 0) $("#content-0").load("page/"+content_0+"/"); 
-				if(slideFrom !== 1) $("#content-1").load("page/"+content_1+"/"); 
+				if(slideFrom !== 0) $("#content-0").load("page/"+content_0+"/room/"+room+"/"); 
+				if(slideFrom !== 1) $("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
 			}			
 		});
-    });
+		
+		// Room Switch
+		$("#room1").click(function(){
+			reload(1);
+		});
+		$("#room2").click(function(){
+			reload(2);
+		});
+		$("#room3").click(function(){
+			reload(3);
+		});
+    });	
+	function reload(newroom){
+		$("#room" + room).toggleClass("btn-clicked");
+		room=newroom;
+		$("#room" + room).toggleClass("btn-clicked");
+		$("#content-0").load("page/"+content_0+"/room/"+room+"/");
+		$("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
+		$("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
+	}
+	function Reload(){
+		reload(room);
+	}
 </script> 
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -72,18 +98,18 @@
     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 </div>
 
-<div class="main-text hidden-xs">
-	<div class="col-md-12 text-center">
-		<h1>
-			<?php echo $this->translate('Reserve Piano Room'); ?>
-		</h1>		
-		<div class="">
-			<a class="btn btn-clear btn-sm btn-min-block" href="#room1"><?php echo $this->translate('Room 1');?></a>
-			<a class="btn btn-clear btn-sm btn-min-block" href="#room2"><?php echo $this->translate('Room 2');?></a>
-			<a class="btn btn-clear btn-sm btn-min-block" href="#room3"><?php echo $this->translate('Room 3');?></a>
-		</div>
+
+<div class="main-text  text-center">
+	<h1>
+		<?php echo $this->translate('Reserve Piano Room'); ?>
+	</h1>		
+	<div class="">
+		<a class="btn btn-clear btn-sm btn-min-block btn-clicked" id="room1"><?php echo $this->translate('Room 1');?></a>
+		<a class="btn btn-clear btn-sm btn-min-block" id="room2"><?php echo $this->translate('Room 2');?></a>
+		<a class="btn btn-clear btn-sm btn-min-block" id="room3"><?php echo $this->translate('Room 3');?></a>
 	</div>
 </div>
+
  
 <style>
 	
@@ -100,7 +126,7 @@ body {
 /* Carousel base class */
 .carousel {
   height: 800px;
-  margin-bottom: 60px;
+  margin-bottom: 0px;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -199,10 +225,11 @@ body {
 .main-text
 {
     position: absolute;
+	text-align: center;
     top: 70px;
-    width: 96.66666666666666%;
+    width: 100%;
     color: #333;
-	text-shadow: 0px 0px 3px rgba(100%,100%,100%,0.5);
+	text-shadow: 0px 0px 5px rgba(100%,100%,100%,0.5);
 	
 }
 .btn-min-block
@@ -217,11 +244,17 @@ body {
     border-color: #333;
 	box-shadow:0px 0px 3px rgba(100%,100%,100%,0.5);
 	text-shadow: 0px 0px 3px rgba(100%,100%,100%,0.5);
-    margin-right: 15px;
+    margin-right: 10px;
+	margin-left: 10px;
 }
 .btn-clear:hover
 {
     color: #000;
+    background-color: rgba(100%,100%,100%,0.7);
+}
+
+.btn-clicked{
+	color: #000;
     background-color: rgba(100%,100%,100%,0.4);
 }
 

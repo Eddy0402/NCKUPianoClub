@@ -24,11 +24,20 @@ class ReserveTable
 				$where-> between('date',$dateStart,$dateEnd);					
 			}) ;
 			$select -> order('class asc,date asc');
+			$select->  join('user', 'user_id = ReserveTable.uid');
 		}) ;
 		return $resultSet;//-> current();
 	}
 	
-	public function getSingleRecord( Date $date, $class, $room ) {
+	public function isRoomReserved( $date, $class, $room ) {
+		if($this->getSingleRecord( $date, $class, $room )){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function getSingleRecord( $date, $class, $room ) {
 		$resultSet = $this -> tableGateway -> select(
 			array( 'date' => $date, 'class' => $class, 'room' => $room ) 
 		);
@@ -45,18 +54,15 @@ class ReserveTable
 			'flag' => $record -> flag,
 			'comment' => $record -> comment,
 		);
+		$r = $this -> getSingleRecord( $record ->date, $record->class, $record->room );
+		if ( $r ) {
+			deleteRecord($r -> reserve_id);
+		} 
+		$this -> tableGateway -> insert( $data );
+	}
 
-		if ( $this -> getSingleRecord( $record ->date, $record->class, $record->room ) ) {
-			$this -> tableGateway -> update( $data, array( 
-				'date' => $record->date, 'class' => $record->class, 'room' => $record->room )
-			);
-		} else {
-			$this -> tableGateway -> insert( $data );
-		}
+	public function deleteRecord( $reserve_id  ) {
+		$this -> tableGateway -> delete( array( 'reserve_id' => ( int ) $reserve_id ) );
 	}
-/*
-	public function deleteUser( $uid ) {
-		$this -> tableGateway -> delete( array( 'uid' => ( int ) $uid ) );
-	}
-*/
+
 }

@@ -7,15 +7,21 @@ class User implements \ZfcUser\Entity\UserInterface
 
 	public $uid = 0;
 	public $name;
+	public $displayName;
 	public $email;
 	public $password;
-	public $password_salt;
-	public $auth_method;
-	public $privilege;
 	public $state;
+	
+	public function exchangeArray( $data ) {
+		$this -> uid = (!empty( $data[ 'user_id' ] )) ? $data[ 'user_id' ] : null;
+		$this -> name = (!empty( $data[ 'username' ] )) ? $data[ 'username' ] : null;
+		$this -> displayName = (!empty( $data[ 'display_name' ] )) ? $data[ 'display_name' ] : null;
+		$this -> email = (!empty( $data[ 'email' ] )) ? $data[ 'email' ] : null;
+		$this -> state = (!empty( $data[ 'state' ] )) ? $data[ 'state' ] : null;	
+	}
 
 	public function getDisplayName() {
-		return $this -> name;
+		return $this -> displayName;
 	}
 
 	public function getEmail() {
@@ -39,7 +45,7 @@ class User implements \ZfcUser\Entity\UserInterface
 	}
 	
 	public function setDisplayName($name) {
-		$this -> name = $name;
+		$this -> displayName = $name;
 		return $this;
 	}
 
