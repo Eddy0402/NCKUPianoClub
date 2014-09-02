@@ -14,7 +14,7 @@ NCKUPianoClub
 實作相關
 ----
 
-+ 登入使用moodle
++ 登入使用學校信箱
 + MySQL
 + 使用PHP+Zend
 
