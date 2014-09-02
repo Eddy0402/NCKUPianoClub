@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-31 22:44+0800\n"
-"PO-Revision-Date: 2014-08-31 23:09+0800\n"
+"POT-Creation-Date: 2014-09-02 22:30+0800\n"
+"PO-Revision-Date: 2014-09-02 22:30+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -16,19 +16,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/reserve-piano-room/view-reserve-table/view.phtml:2
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:101
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:104
 msgid "Reserve Piano Room"
 msgstr "琴點系統"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:104
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:107
 msgid "Room 1"
 msgstr "琴房一"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:105
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:108
 msgid "Room 2"
 msgstr "琴房二"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:106
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:109
 msgid "Room 3"
 msgstr "琴房三"
 
@@ -48,13 +48,17 @@ msgstr "上週"
 msgid "Time \\ Date"
 msgstr "時間 \\ 日期"
 
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:69
+#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:71
 msgid "reserve"
 msgstr "借用"
 
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:91
+#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:92
 msgid "Confirm reservation"
 msgstr "確認借用"
+
+#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:99
+msgid "Not able to reserve!"
+msgstr "此時段無法借用！"
 
 #, fuzzy
 #~ msgid "Reserve Paino Room"

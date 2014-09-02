@@ -25,3 +25,4 @@ PLEASE NOTE: The Cron cartridge must be installed in order to run the configured
 For more information about cron, consult the documentation:
 http://openshift.github.io/documentation/oo_cartridge_guide.html#cron
 http://openshift.github.io/documentation/oo_user_guide.html#cron
+=======

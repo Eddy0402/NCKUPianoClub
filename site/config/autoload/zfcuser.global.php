@@ -52,7 +52,7 @@ $settings = array(
      */
     'auth_adapters' => array( 
 		101 => 'User\Authentication\Adapter\NCKUMail',
-		100 => 'ZfcUser\Authentication\Adapter\Db'
+		//100 => 'ZfcUser\Authentication\Adapter\Db'
 	),
 
     /**

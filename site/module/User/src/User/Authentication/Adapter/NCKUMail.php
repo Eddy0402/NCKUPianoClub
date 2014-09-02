@@ -19,6 +19,8 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
     protected $hydrator;
 
     protected $serviceManager;
+	
+	protected $credentialPreprocessor;
 
     protected $options;
 	
@@ -36,7 +38,6 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
                   ->setMessages(array('Authentication successful.'));
             return;
         }
-
 		
         $identity   = $event->getRequest()->getPost()->get('identity');
         $credential = $event->getRequest()->getPost()->get('credential');
@@ -60,17 +61,21 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
             }
         }
 		
-		error_log('a');
-		
 		$imap_return = imap_open('{mail.ncku.edu.tw/ssl}INBOX',$identity,$credential);
 		if(imap_ping($imap_return) != 1){		
-		    $event->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)
-                  ->setMessages(array('Supplied credential is invalid.'));
-            $this->setSatisfied(false);
-            return false;
+			$credential = $this->preProcessCredential($credential);
+			$cryptoService = $this->getHydrator()->getCryptoService();
+			if (!$cryptoService->verify($credential, $userObject->getPassword())) {
+				// Password does not match
+				$event->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)
+					  ->setMessages(array('Supplied credential is invalid.'));
+				$this->setSatisfied(false);
+				return false;
+			} elseif ($cryptoService instanceof Bcrypt) {
+				// Update user's password hash if the cost parameter has changed
+				$this->updateUserPasswordHash($userObject, $credential, $cryptoService);
+			}
 		}
-					
-		error_log('a');
 		
         // regen the id
         SessionContainer::getDefaultManager()->regenerateId();
@@ -135,5 +140,22 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
             $this->setOptions($this->serviceManager->get('zfcuser_module_options'));
         }
         return $this->options;
+    }
+	
+	    public function getCredentialPreprocessor()
+    {
+        return $this->credentialPreprocessor;
+    }
+
+    public function setCredentialPreprocessor($credentialPreprocessor)
+    {
+        if (!is_callable($credentialPreprocessor)) {
+            $message = sprintf(
+                "Credential Preprocessor must be callable, [%s] given",
+                gettype($credentialPreprocessor)
+            );
+            throw new InvalidArgumentException($message);
+        }
+        $this->credentialPreprocessor = $credentialPreprocessor;
     }
 }
