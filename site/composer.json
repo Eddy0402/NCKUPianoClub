@@ -1,6 +1,6 @@
 {
     "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
+    "description": "Website for NCKU piano club",
     "license": "BSD-3-Clause",
     "keywords": [
         "framework",
@@ -10,6 +10,6 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
-		"socalnick/scn-social-auth": "dev-master"
+		"zf-commons/zfc-user": "dev-master"
     }
 }

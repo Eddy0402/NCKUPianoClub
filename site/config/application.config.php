@@ -11,7 +11,6 @@ return array(
 		'User',
         'ReservePianoRoom',
         'Activity',
-		'ScnSocialAuth',
         'ZfcBase',
         'ZfcUser',
     ),

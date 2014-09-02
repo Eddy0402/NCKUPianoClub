@@ -12,7 +12,7 @@ $settings = array(
      * Please specify the DI alias for the configured Zend\Db\Adapter\Adapter
      * instance that ZfcUser should use.
      */
-    //'zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
+    'zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
 
     /**
      * User Model Entity Class
@@ -50,7 +50,10 @@ $settings = array(
      * Default value: array containing 'ZfcUser\Authentication\Adapter\Db' with priority 100
      * Accepted values: array containing services that implement 'ZfcUser\Authentication\Adapter\ChainableAdapter'
      */
-    'auth_adapters' => array( 100 => 'ZfcUser\Authentication\Adapter\Db' ),
+    'auth_adapters' => array( 
+		101 => 'User\Authentication\Adapter\NCKUMail',
+		100 => 'ZfcUser\Authentication\Adapter\Db'
+	),
 
     /**
      * Enable Display Name
@@ -101,7 +104,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    //'login_after_registration' => true,
+    'login_after_registration' => true,
 
     /**
      * Registration Form Captcha
@@ -109,7 +112,7 @@ $settings = array(
      * Determines if a captcha should be utilized on the user registration form.
      * Default value is false.
      */
-    //'use_registration_form_captcha' => true,
+    'use_registration_form_captcha' => true,
 
     /**
      * Form Captcha Options

@@ -18,4 +18,14 @@ class Module
             ),
         );
     }
+	
+	public function getServiceConfig()
+    {
+        return array(
+            'invokables' => array(
+				'User\Authentication\Adapter\NCKUMail' => 'User\Authentication\Adapter\NCKUMail',
+			),
+		);
+	}
+				
 }
