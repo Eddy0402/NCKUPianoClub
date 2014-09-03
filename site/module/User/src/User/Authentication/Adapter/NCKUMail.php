@@ -2,6 +2,8 @@
 
 namespace User\Authentication\Adapter;
 
+use InvalidArgumentException;
+use Zend\Crypt\Password\Bcrypt;
 use Zend\Authentication\Result as AuthenticationResult;
 use ZfcUser\Authentication\Adapter\AbstractAdapter;
 use ZfcUser\Authentication\Adapter\AdapterChainEvent;
@@ -11,6 +13,7 @@ use Zend\Session\Container as SessionContainer;
 use ZfcUser\Mapper\HydratorInterface as Hydrator;
 use ZfcUser\Mapper\UserInterface as UserMapper;
 use ZfcUser\Options\AuthenticationOptionsInterface as AuthenticationOptions;
+use ZfcUser\Entity\UserInterface as UserEntity;
 
 class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
 	
@@ -43,7 +46,7 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
         $credential = $event->getRequest()->getPost()->get('credential');
 			
         $userObject = $this->getMapper()->findByUsername($identity);
-
+		
         if (!$userObject) {
             $event->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
                   ->setMessages(array('A record with the supplied identity could not be found.'));
@@ -61,8 +64,17 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
             }
         }
 		
-		$imap_return = imap_open('{mail.ncku.edu.tw/ssl}INBOX',$identity,$credential);
-		if(imap_ping($imap_return) != 1){		
+		if($userObject -> state == 2){
+			$imap_return = imap_open('{mail.ncku.edu.tw/ssl}INBOX',$identity,$credential);
+			if(imap_ping($imap_return) != 1){	
+				$event->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)
+					  ->setMessages(array('Cannot authenticate via NCKU.'));
+				$this->setSatisfied(false);
+				return false;
+			}
+		}
+		
+		else{ // not ncku login	
 			$credential = $this->preProcessCredential($credential);
 			$cryptoService = $this->getHydrator()->getCryptoService();
 			if (!$cryptoService->verify($credential, $userObject->getPassword())) {
@@ -91,6 +103,15 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
               ->setMessages(array('Authentication successful.'));
 	}
 	
+	protected function updateUserPasswordHash(UserEntity $user, $password, Bcrypt $bcrypt)
+    {
+        $hash = explode('$', $user->getPassword());
+        if ($hash[2] === $bcrypt->getCost()) {
+            return;
+        }
+        $user = $this->getHydrator()->hydrate(compact('password'), $user);
+        $this->getMapper()->update($user);
+    }
 	
     public function getMapper()
     {
@@ -142,7 +163,7 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
         return $this->options;
     }
 	
-	    public function getCredentialPreprocessor()
+	public function getCredentialPreprocessor()
     {
         return $this->credentialPreprocessor;
     }
@@ -157,5 +178,13 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
             throw new InvalidArgumentException($message);
         }
         $this->credentialPreprocessor = $credentialPreprocessor;
+    }
+	
+	public function preprocessCredential($credential)
+    {
+        if (is_callable($this->credentialPreprocessor)) {
+            return call_user_func($this->credentialPreprocessor, $credential);
+        }
+        return $credential;
     }
 }
