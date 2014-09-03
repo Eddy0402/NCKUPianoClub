@@ -45,7 +45,20 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
         $identity   = $event->getRequest()->getPost()->get('identity');
         $credential = $event->getRequest()->getPost()->get('credential');
 			
-        $userObject = $this->getMapper()->findByUsername($identity);
+		$userObject = null;
+        // Cycle through the configured identity sources and test each
+        $fields = $this->getOptions()->getAuthIdentityFields();
+        while (!is_object($userObject) && count($fields) > 0) {
+            $mode = array_shift($fields);
+            switch ($mode) {
+                case 'username':
+                    $userObject = $this->getMapper()->findByUsername($identity);
+                    break;
+                case 'email':
+                    $userObject = $this->getMapper()->findByEmail($identity);
+                    break;
+            }
+        }
 		
         if (!$userObject) {
             $event->setCode(AuthenticationResult::FAILURE_IDENTITY_NOT_FOUND)
