@@ -27,11 +27,11 @@ return array(
 					'route' => '/ReservePianoRoom/',
 					'defaults' => array(
 						'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
-						'action' => 'view',
+						'action' => 'index',
 					),
 				),
 			),
-			'ViewReserveTableData' => array(
+			'ViewReserveTableTable' => array(
 				'type' => 'Segment',
 				'options' => array(
 					'route' => '/ReservePianoRoom/page/:page/[room/:room/]',
@@ -40,7 +40,7 @@ return array(
 						'room'   => '[1-3]',
 					),
 					'defaults' => array(
-						'controller' => 'ReservePianoRoom\Controller\ViewReserveTableData',
+						'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
 						'action' => 'view',
 						'page' => 0,
 						'room' => 1,
