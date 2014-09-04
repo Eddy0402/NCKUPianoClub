@@ -7,46 +7,51 @@ use ReservePianoRoom\Model\Record;
 
 class ModifyReserveTableController extends AbstractActionController
 {
-	public function modifyAction(){
-		
-		if ($this->zfcUserAuthentication()->hasIdentity()) {
-		
-			$date = $this->params()->fromRoute('date');
-			$class = (int) $this->params()->fromRoute('class', 0);
-			$room = (int) $this->params()->fromRoute('room', 0);
-			$cancel = $this->params()->fromRoute('cancel');
 
-			$Table = $this-> getReserveTable();
-			if(!$Table -> isRoomReserved($date,$class,$room)){
-				$record = new Record();
-				$record -> exchangeArray(array(
-					'room' => $room,
-					'date' => $date,
-					'class' => $class,
-					'uid' => $this->zfcUserAuthentication()->getIdentity()->getId(),					
-				));
-				$Table->saveRecord($record);
+	public function modifyAction() {
+		if ( $this -> zfcUserAuthentication() -> hasIdentity() ) {
+
+			$date = $this -> params() -> fromRoute( 'date' );
+			$class = ( int ) $this -> params() -> fromRoute( 'class', 0 );
+			$room = ( int ) $this -> params() -> fromRoute( 'room', 0 );
+			$method = $this -> params() -> fromRoute( 'method' );
+
+			$Table = $this -> getReserveTable();
+			if ( $Table -> isRoomReserved( $date, $class, $room ) == false ) {
+				$this -> AddRecord(
+					$Table, $date, $class, $room, $this -> zfcUserAuthentication() -> getIdentity() -> getId()
+				);
 			}
 
-			$response = $this->getResponse();
-			$response->setContent('Success'); 
+			$response = $this -> getResponse();
+			$response -> setContent( 'Success' );
 			return $response;
-		
-		}else{
-			$response = $this->getResponse();
-			$response->setContent('Not logged in.'); 
+		} else {
+			$response = $this -> getResponse();
+			$response -> setContent( 'Not logged in.' );
 			return $response;
-		}	
+		}
 	}
-	
-	public function getReserveTable()
-    {
-         if (!$this->ReserveTable) {
-             $sm = $this->getServiceLocator();
-             $this->ReserveTable = $sm->get('ReservePianoRoom\Model\ReserveTable');
-         }
-         return $this->ReserveTable;
-    }
+
+	private function AddRecord( $Table, $date, $class, $room, $uid ) {
+		$record = new Record();
+		$record -> exchangeArray( array(
+			'date' => $date,
+			'class' => $class,
+			'room' => $room,
+			'uid' => $uid,
+		) );
+		$Table -> saveRecord( $record );
+	}
+
+	public function getReserveTable() {
+		if ( !$this -> ReserveTable ) {
+			$sm = $this -> getServiceLocator();
+			$this -> ReserveTable = $sm -> get( 'ReserveTable' );
+		}
+		return $this -> ReserveTable;
+	}
 
 	protected $ReserveTable;
+
 }

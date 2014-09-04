@@ -50,17 +50,17 @@ return array(
 			'ModifyReserveTable' => array(
 				'type' => 'Segment',
 				'options' => array(
-					'route' => '/ReservePianoRoom/m/d/:date/c/:class/r/:room/[c/:cancel/]',
+					'route' => '/ReservePianoRoom/m/d/:date/c/:class/r/:room/[m/:method/]',
 					'constraints' => array(
 						'date'   => '[-0-9]*',
 						'class'  => '[0-9]+',
 						'room'   => '[1-3]+',
-						'cancel' => '[a-z]+',
+						'method' => '[a-z]+',
 					),
 					'defaults' => array(
 						'controller' => 'ReservePianoRoom\Controller\ModifyReserveTable',
 						'action' => 'modify',
-						'cancel' => 'false',
+						'method' => 'reserve',
 					),
 				),
 			),

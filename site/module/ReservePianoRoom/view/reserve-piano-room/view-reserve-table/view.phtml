@@ -1,128 +1,153 @@
 <?php
-	$current = $resultset->current();
-	
-	$dateStrings = array();
-	for ( $date = clone $first; $date <= $last ;$date->modify('+1 day') ){
-		array_push($dateStrings, $date -> format('Y-m-d'));
-	}
-	
-	$RecordItems = array();
-	while($current){
-		if($current->room == $room){
-			if(!array_key_exists($current->date,$RecordItems)){
-				$RecordItems[$current->date] = array();
-			}
-			if(!array_key_exists($current->class,$RecordItems[$current->date])){
-				$RecordItems[$current->date][$current->class] = array();
-			}
-			$RecordItems[$current->date][$current->class][$current->room] = array(
-				'reserve_id' => $current->reserve_id,
-				'room' => $current->room,
-				'uid' => $current->uid,
-				'displayName' => $current->userData->displayName,
-				'flag' => $current->flag,
-				'comment' => $current-> comment,
-			);
-		}
-		$resultset->next();
-		$current = $resultset->current();		
-	}	
-?>		
+	const CLASS_START = 0;
+	const CLASS_END = 13;
+
+$dateStringsYMD = generateDateStrings( $first, $last, 'Y-m-d' );
+$dateStringsMD = generateDateStrings( $first, $last, 'm-d' );
+$RecordItems = processData( $resultset, $room );
+?>
 
 <div class="table-responsive center-block table-content" style="margin-top: -20px;">	
 	<div class="h3">
-		<?php if($page == 0):?>
-			<?php echo $this->translate('Current Week'); ?>
-		<?php elseif($page == 1):?>
-			<?php echo $this->translate('Next Week'); ?>
-		<?php elseif($page == -1):?>
-			<?php echo $this->translate('Last Week'); ?>
-		<?php else:?>
-			<?php echo $first -> format('Y-m-d'). '~' . $last -> format('Y-m-d');?>
-		<?php endif;?>
+		<?php echo weekDescription( $page, $first, $last, $this ); ?>
 	</div>
 	<table class="table table-striped table-hover">
-		<tbody>
 		<tr>
-			<th class="text-center"><?php echo $this->translate('Time \\ Date');?></th>
-			<?php for ( $date = clone $first; $date <= $last ;$date->modify('+1 day') ) : ?>
-			<th class="text-center">
-				　<?php echo $date -> format('m-d'); ?>　
-			</th>
-			<?php endfor;?>
+			<th class="text-center"><?php echo $this -> translate( 'Time \\ Date' ); ?></th>
+			<?php foreach ( $dateStringsMD as $date ) : ?>
+				<th class="text-center">
+					<?php echo $date; ?>　
+				</th>
+			<?php endforeach; ?>
 		</tr>
 
-		<?php for( $class = 0; $class < 14; $class++ ): ?>
+		<?php for ( $class = CLASS_START; $class <= CLASS_END; $class++ ): ?>
 			<tr>
-				<th class="text-center"><?php echo sprintf('%02d:00 ~ %02d:00',$class+8,$class+9) ?></th>
-				<?php for ( $date = clone $first; $date <= $last ;$date->modify('+1 day') ) : ?>
-				<?php $dateString = $date -> format('Y-m-d'); ?>
+				<th class="text-center"><?php echo getClassTime( $class ) ?></th>
+				<?php foreach ( $dateStringsYMD as $date ) : ?>
+					<?php if ( array_key_exists( $date, $RecordItems ) && array_key_exists( $class, $RecordItems[ $date ] ) ): ?>
+						<td class="text-center table-content-light" data-key="" data-display="" data-reservable="false">
+							<?php foreach ( $RecordItems[ $date ][ $class ] as $record ): ?>							
+								<?php echo $record[ 'displayName' ]; ?>
+							<?php endforeach; ?>
+						</td>
+					<?php else: ?>
+						<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $room ); ?>
+						<?php $data_display = $date . '，' . sprintf( '%02d:00 ~ %02d:00', $class + 8, $class + 9 ); ?>					
+						<td class="text-center table-content-light" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable; ?>">
+							<span id="reserve" style="display:none"><?php echo $this -> translate( 'reserve' ); ?></span>
+						</td>
+					<?php endif; ?>
 
-				<?php if( array_key_exists($dateString,$RecordItems) && array_key_exists($class,$RecordItems[$dateString])): ?>
-					<td class="text-center" data-key="" data-display="" data-reservable="false">
-						<?php foreach($RecordItems[$dateString][$class] as $record): ?>							
-							<?php echo $record['displayName'];?>
-						<?php endforeach;?>
-					</td>
-				<?php else: ?>
-					<?php $data_key = sprintf('d/%s/c/%d/r/%d/',$dateString,$class,$room);?>
-					<?php $data_display = $dateString.'，'.sprintf('%02d:00 ~ %02d:00',$class+8,$class+9); ?>					
-					<td class="text-center" data-key="<?php echo $data_key?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable;?>">
-						<span id="reserve" style="display:none"><?php echo $this->translate('reserve'); ?></span>
-					</td>
-				<?php endif;?>
-				
 
-				<?php endfor; ?>	
+				<?php endforeach; ?>	
 			</tr>
 		<?php endfor; ?>
-		</tbody>
 	</table>
 </div>
 <div id="dialog-confirm"></div>
 
-<script>	
+<script>
 	// table
 	$(function() {
-        $('.table-hover td').unbind().click(function() {
+		$('.table-hover td').unbind().click(function() {
 			var Key = $(this).attr("data-key");
 			var dataDisplay = $(this).attr("data-display");
 			var reservable = $(this).attr("data-reservable");
-			if( reservable !== "false"){
-				if(confirm('<?php echo $this->translate('Confirm reservation') ;?>' + ':' + dataDisplay)){
+			if (reservable !== "false") {
+				if (confirm('<?php echo $this -> translate( 'Confirm reservation' ); ?>' + ':' + dataDisplay)) {
 					jQuery.get('/ReservePianoRoom/m/' + Key, function(data) {
-						if(data === "Success") Reload();
-						else alert('Something Wrong! ...' + data);
+						if (data === "Success")
+							Reload();
+						else
+							alert('Something Wrong! ...' + data);
 					});
 				}
-			}else{
-				//alert('<?php echo $this->translate('Not able to reserve!');?>');
+			} else {
+				//alert('<?php echo $this -> translate( 'Not able to reserve!' ); ?>');
 			}
 			return false;
-        }).mouseover(function() {
+		}).mouseover(function() {
 			var reservable = $(this).attr("data-reservable");
-			if( reservable === "true" ){
+			if (reservable === "true") {
 				$(this).find('span').fadeIn(0);
 			}
 			return false;
-        }).mouseout(function() {
+		}).mouseout(function() {
 			var reservable = $(this).attr("data-reservable");
-			if( reservable === "true" ){
+			if (reservable === "true") {
 				$(this).find('span').fadeOut(0);
 			}
 			return false;
-        });
+		});
 	});
-	
+
 </script>
 
 <style>
 	.h3{
-		color: #9F9F9F;
+		color: #BFBFBF;
 		text-shadow: 0px 0px 4px rgba(0%,0%,0%,0.5);		
 	}
 	.table-content{
-		color: #E0E0E0;
+		color: #9F9F9F;
 		text-shadow: 0px 0px 4px rgba(0%,0%,0%,0.5);	
 	}
+	.table-content-light{
+		color: #FFFFFF;
+		text-shadow: 0px 0px 4px rgba(0%,0%,0%,0.5);	
+	}	
 </style>
+
+
+<?php
+
+function generateDateStrings( $first, $last, $format ) {
+	$dateStrings = array();
+	for ( $date = clone $first; $date <= $last; $date -> modify( '+1 day' ) ) {
+		array_push( $dateStrings, $date -> format( $format ) );
+	}
+	return $dateStrings;
+}
+
+function weekDescription( $page, $first, $last, $view ) {
+	if ( $page == 0 ) {
+		return $view -> translate( 'Current Week' );
+	} elseif ( $page == 1 ) {
+		return $view -> translate( 'Next Week' );
+	} elseif ( $page == -1 ) {
+		return $view -> translate( 'Last Week' );
+	} else {
+		return $first -> format( 'Y-m-d' ) . '~' . $last -> format( 'Y-m-d' );
+	}
+}
+
+function processData( $resultset, $room ) {
+	$current = $resultset -> current();
+	$RecordItems = array();
+	while ( $current ) {
+		if ( $current -> room == $room ) {
+			if ( !array_key_exists( $current -> date, $RecordItems ) ) {
+				$RecordItems[ $current -> date ] = array();
+			}
+			if ( !array_key_exists( $current -> class, $RecordItems[ $current -> date ] ) ) {
+				$RecordItems[ $current -> date ][ $current -> class ] = array();
+			}
+			$RecordItems[ $current -> date ][ $current -> class ][ $current -> room ] = array(
+				'reserve_id' => $current -> reserve_id,
+				'room' => $current -> room,
+				'uid' => $current -> uid,
+				'displayName' => $current -> userData -> getDisplayName(),
+				'flag' => $current -> flag,
+				'comment' => $current -> comment,
+			);
+		}
+		$resultset -> next();
+		$current = $resultset -> current();
+	}
+	return $RecordItems;
+}
+
+function getClassTime( $class ) {
+	return sprintf( '%02d:00 ~ %02d:00', $class + 8, $class + 9 );
+}

@@ -1,62 +1,71 @@
 <?php
-	$title = $this->translate('Reserve Piano Room');
-	$this->headTitle($title);
+$title = $this -> translate( 'Reserve Piano Room' );
+$this -> headTitle( $title );
+$this -> headLink() -> appendStylesheet( '/confirm-popup/css/style.css' );
+$this -> headScript() -> appendFile('/confirm-popup/js/main.js');
+$this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 ?>
 
-<script> 	
+<script>
 	var content_0 = -1;
 	var content_1 = 0;
 	var content_2 = 1;
 	var room = 1;
-		
-    $(function(){
-		
+
+	$(function() {
+
 		// Slide load
-		$("#content-0").load("page/"+content_0+"/room/"+room+"/"); 
-		$("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
-		$("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
-		
-		$("#myCarousel").on('slide.bs.carousel', function (e) {
+		$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
+		$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
+		$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+
+		$("#myCarousel").on('slide.bs.carousel', function(e) {
 			var slideFrom = $(this).find('.active').index();
 			var slideTo = $(e.relatedTarget).index();
-			if(slideTo === 0){
+			if (slideTo === 0) {
 				content_2 = content_0 - 1;
 				content_1 = content_0 + 1;
-				if(slideFrom !== 1) $("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
-				if(slideFrom !== 2) $("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
-			}else if(slideTo === 1){
+				if (slideFrom !== 1)
+					$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
+				if (slideFrom !== 2)
+					$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+			} else if (slideTo === 1) {
 				content_0 = content_1 - 1;
 				content_2 = content_1 + 1;
-				if(slideFrom !== 0) $("#content-0").load("page/"+content_0+"/room/"+room+"/"); 
-				if(slideFrom !== 2) $("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
-			}else{
+				if (slideFrom !== 0)
+					$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
+				if (slideFrom !== 2)
+					$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+			} else {
 				content_0 = content_2 + 1;
 				content_1 = content_2 - 1;
-				if(slideFrom !== 0) $("#content-0").load("page/"+content_0+"/room/"+room+"/"); 
-				if(slideFrom !== 1) $("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
-			}			
+				if (slideFrom !== 0)
+					$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
+				if (slideFrom !== 1)
+					$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
+			}
 		});
-		
+
 		// Room Switch
-		$("#room1").click(function(){
+		$("#room1").click(function() {
 			reload(1);
 		});
-		$("#room2").click(function(){
+		$("#room2").click(function() {
 			reload(2);
 		});
-		$("#room3").click(function(){
+		$("#room3").click(function() {
 			reload(3);
 		});
-    });	
-	function reload(newroom){
+	});
+	function reload(newroom) {
 		$("#room" + room).toggleClass("btn-clicked");
-		room=newroom;
+		room = newroom;
 		$("#room" + room).toggleClass("btn-clicked");
-		$("#content-0").load("page/"+content_0+"/room/"+room+"/");
-		$("#content-1").load("page/"+content_1+"/room/"+room+"/"); 
-		$("#content-2").load("page/"+content_2+"/room/"+room+"/"); 
+		$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
+		$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
+		$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
 	}
-	function Reload(){
+	function Reload() {
 		reload(room);
 	}
 </script> 
@@ -64,9 +73,9 @@
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
-	  <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-	  <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-	  <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+		<li data-target="#myCarousel" data-slide-to="0" class=""></li>
+		<li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+		<li data-target="#myCarousel" data-slide-to="2" class=""></li>
 	</ol>
 	<div class="carousel-inner">
 		<div class="item">
@@ -101,162 +110,174 @@
 
 <div class="main-text  text-center">
 	<h1>
-		<?php echo $this->translate('Reserve Piano Room'); ?>
+<?php echo $this -> translate( 'Reserve Piano Room' ); ?>
 	</h1>		
 	<div class="">
-		<a class="btn btn-clear btn-sm btn-min-block btn-clicked" id="room1"><?php echo $this->translate('Room 1');?></a>
-		<a class="btn btn-clear btn-sm btn-min-block" id="room2"><?php echo $this->translate('Room 2');?></a>
-		<a class="btn btn-clear btn-sm btn-min-block" id="room3"><?php echo $this->translate('Room 3');?></a>
+		<a class="btn btn-clear btn-sm btn-min-block btn-clicked" id="room1"><?php echo $this -> translate( 'Room 1' ); ?></a>
+		<a class="btn btn-clear btn-sm btn-min-block" id="room2"><?php echo $this -> translate( 'Room 2' ); ?></a>
+		<a class="btn btn-clear btn-sm btn-min-block" id="room3"><?php echo $this -> translate( 'Room 3' ); ?></a>
 	</div>
 </div>
 
- 
+<a href="#" class="cd-popup-trigger">View Pop-up</a>
+
+<div class="cd-popup" role="alert">
+	<div class="cd-popup-container">
+		<p>Are you sure you want to delete this element?</p>
+		<ul class="cd-buttons">
+			<li><a href="#0">Yes</a></li>
+			<li><a href="#0">No</a></li>
+		</ul>
+		<a href="#0" class="cd-popup-close img-replace">Close</a>
+	</div> <!-- cd-popup-container -->
+</div>
+
 <style>
-	
-/* GLOBAL STYLES -------------------------------------------------- */
-/* Padding below the footer and lighter body text */
 
-body {
-  padding-bottom: 40px;
-  color: #5a5a5a;
-}
+	/* GLOBAL STYLES -------------------------------------------------- */
+	/* Padding below the footer and lighter body text */
 
-/* CUSTOMIZE THE CAROUSEL -------------------------------------------------- */
+	body {
+		padding-bottom: 40px;
+		color: #5a5a5a;
+	}
 
-/* Carousel base class */
-.carousel {
-  height: 800px;
-  margin-bottom: 0px;
-}
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-	z-index: 10;
-	border-radius: 20px;
-    background: rgba(0, 0, 0, 0.55);
-	box-shadow: 0px 0px 20px #333;
-	
-}
+	/* CUSTOMIZE THE CAROUSEL -------------------------------------------------- */
 
-/* Declare heights because of positioning of img element */
-.carousel .item {
-  height: 800px;
-  background-color: #777;
-  z-index: 0;
-}
+	/* Carousel base class */
+	.carousel {
+		height: 800px;
+		margin-bottom: 0px;
+	}
+	/* Since positioning the image, we need to help out the caption */
+	.carousel-caption {
+		z-index: 10;
+		border-radius: 20px;
+		background: rgba(0, 0, 0, 0.55);
+		box-shadow: 0px 0px 20px #333;
 
-.carousel-inner > .item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 800px;
-}
+	}
 
+	/* Declare heights because of positioning of img element */
+	.carousel .item {
+		height: 800px;
+		background-color: #777;
+		z-index: 0;
+	}
 
-/* MARKETING CONTENT -------------------------------------------------- */
-
-/* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
-  margin-bottom: 20px;
-  text-align: center;
-}
-.marketing h2 {
-  font-weight: normal;
-}
-.marketing .col-lg-4 p {
-  margin-right: 10px;
-  margin-left: 10px;
-}
+	.carousel-inner > .item > img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		min-width: 100%;
+		height: 800px;
+	}
 
 
-/* Featurettes ------------------------- */
+	/* MARKETING CONTENT -------------------------------------------------- */
 
-.featurette-divider {
-  margin: 80px 0; /* Space out the Bootstrap <hr> more */
-}
+	/* Center align the text within the three columns below the carousel */
+	.marketing .col-lg-4 {
+		margin-bottom: 20px;
+		text-align: center;
+	}
+	.marketing h2 {
+		font-weight: normal;
+	}
+	.marketing .col-lg-4 p {
+		margin-right: 10px;
+		margin-left: 10px;
+	}
 
-/* Thin out the marketing headings */
-.featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
-}
 
-/* RESPONSIVE CSS -------------------------------------------------- */
+	/* Featurettes ------------------------- */
 
-@media (min-width: 768px) {
+	.featurette-divider {
+		margin: 80px 0; /* Space out the Bootstrap <hr> more */
+	}
 
-  /* Navbar positioning foo */
-  .navbar-wrapper {
-    margin-top: 20px;
-  }
-  .navbar-wrapper .container {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-  .navbar-wrapper .navbar {
-    padding-right: 0;
-    padding-left: 0;
-  }
+	/* Thin out the marketing headings */
+	.featurette-heading {
+		font-weight: 300;
+		line-height: 1;
+		letter-spacing: -1px;
+	}
 
-  /* The navbar becomes detached from the top, so we round the corners */
-  .navbar-wrapper .navbar {
-    border-radius: 4px;
-  }
+	/* RESPONSIVE CSS -------------------------------------------------- */
 
-  /* Bump up size of carousel content */
-  .carousel-caption p {
-    margin-bottom: 20px;
-    font-size: 21px;
-    line-height: 1.4;
-  }
+	@media (min-width: 768px) {
 
-  .featurette-heading {
-    font-size: 50px;
-  }
-}
+		/* Navbar positioning foo */
+		.navbar-wrapper {
+			margin-top: 20px;
+		}
+		.navbar-wrapper .container {
+			padding-right: 15px;
+			padding-left: 15px;
+		}
+		.navbar-wrapper .navbar {
+			padding-right: 0;
+			padding-left: 0;
+		}
 
-@media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
-}
+		/* The navbar becomes detached from the top, so we round the corners */
+		.navbar-wrapper .navbar {
+			border-radius: 4px;
+		}
 
-.main-text
-{
-    position: absolute;
-	text-align: center;
-    top: 70px;
-    width: 100%;
-    color: #333;
-	text-shadow: 0px 0px 5px rgba(100%,100%,100%,0.5);
-	
-}
-.btn-min-block
-{
-    min-width: 170px;
-    line-height: 26px;
-}
-.btn-clear
-{
-    color: #333;
-    background-color: transparent;
-    border-color: #333;
-	box-shadow:0px 0px 3px rgba(100%,100%,100%,0.5);
-	text-shadow: 0px 0px 3px rgba(100%,100%,100%,0.5);
-    margin-right: 10px;
-	margin-left: 10px;
-}
-.btn-clear:hover
-{
-    color: #000;
-    background-color: rgba(100%,100%,100%,0.7);
-}
+		/* Bump up size of carousel content */
+		.carousel-caption p {
+			margin-bottom: 20px;
+			font-size: 21px;
+			line-height: 1.4;
+		}
 
-.btn-clicked{
-	color: #000;
-    background-color: rgba(100%,100%,100%,0.4);
-}
+		.featurette-heading {
+			font-size: 50px;
+		}
+	}
+
+	@media (min-width: 992px) {
+		.featurette-heading {
+			margin-top: 120px;
+		}
+	}
+
+	.main-text
+	{
+		position: absolute;
+		text-align: center;
+		top: 70px;
+		width: 100%;
+		color: #333;
+		text-shadow: 0px 0px 5px rgba(100%,100%,100%,0.5);
+
+	}
+	.btn-min-block
+	{
+		min-width: 170px;
+		line-height: 26px;
+	}
+	.btn-clear
+	{
+		color: #333;
+		background-color: transparent;
+		border-color: #333;
+		box-shadow:0px 0px 3px rgba(100%,100%,100%,0.5);
+		text-shadow: 0px 0px 3px rgba(100%,100%,100%,0.5);
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+	.btn-clear:hover
+	{
+		color: #000;
+		background-color: rgba(100%,100%,100%,0.7);
+	}
+
+	.btn-clicked{
+		color: #000;
+		background-color: rgba(100%,100%,100%,0.4);
+	}
 
 
 </style>

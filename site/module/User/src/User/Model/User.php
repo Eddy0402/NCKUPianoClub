@@ -5,19 +5,21 @@ namespace User\Model;
 class User implements \ZfcUser\Entity\UserInterface
 {
 
-	public $uid = 0;
-	public $name;
-	public $displayName;
-	public $email;
-	public $password;
-	public $state;
+	private $uid = 0;
+	private $name;
+	private $displayName;
+	private $email;
+	private $password;
+	private $state;
+	private $role;
 	
 	public function exchangeArray( $data ) {
 		$this -> uid = (!empty( $data[ 'user_id' ] )) ? $data[ 'user_id' ] : null;
 		$this -> name = (!empty( $data[ 'username' ] )) ? $data[ 'username' ] : null;
 		$this -> displayName = (!empty( $data[ 'display_name' ] )) ? $data[ 'display_name' ] : null;
 		$this -> email = (!empty( $data[ 'email' ] )) ? $data[ 'email' ] : null;
-		$this -> state = (!empty( $data[ 'state' ] )) ? $data[ 'state' ] : null;	
+		$this -> state = (!empty( $data[ 'state' ] )) ? $data[ 'state' ] : null;
+		$this -> role = (!empty( $data[ 'role' ] )) ? $data[ 'role' ] : null;
 	}
 
 	public function getDisplayName() {
@@ -42,6 +44,10 @@ class User implements \ZfcUser\Entity\UserInterface
 
 	public function getUsername() {
 		return $this -> name;
+	}
+		
+	public function getRole(){
+		return $this -> role;
 	}
 	
 	public function setDisplayName($name) {
@@ -73,5 +79,9 @@ class User implements \ZfcUser\Entity\UserInterface
 		$this -> name = $name;
 		return $this;
 	}
-
+	
+	public function setRole($role){
+		$this -> role = $role;
+		return $this;
+	}
 }
