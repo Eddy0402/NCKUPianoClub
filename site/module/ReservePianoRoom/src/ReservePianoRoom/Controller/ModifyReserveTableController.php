@@ -11,20 +11,27 @@ class ModifyReserveTableController extends AbstractActionController
 	public function modifyAction() {
 		if ( $this -> zfcUserAuthentication() -> hasIdentity() ) {
 
+			$uid = $this -> zfcUserAuthentication() -> getIdentity() -> getId();
+			
 			$date = $this -> params() -> fromRoute( 'date' );
 			$class = ( int ) $this -> params() -> fromRoute( 'class', 0 );
 			$room = ( int ) $this -> params() -> fromRoute( 'room', 0 );
 			$method = $this -> params() -> fromRoute( 'method' );
 
-
 			$first = new \DateTime( 'this week +7 days' );
 			$last = new \DateTime( 'this week +13 days' );
 			$personalReserveDay = $this -> getReserveTableQuery() -> getPersonReservedCount(
-				$this -> zfcUserAuthentication() -> getIdentity() -> getId(), $first -> format( 'y-m-d' ), $last -> format( 'y-m-d' )
+				$uid, $first -> format( 'y-m-d' ), $last -> format( 'y-m-d' )
 			);
 			if ( $personalReserveDay >= 7 ) {
 				$response = $this -> getResponse();
 				$response -> setContent( 'Exceed' );
+				return $response;
+			}
+			
+			if ( $this -> getReserveTableQuery() -> isPersonReservedInTime($uid,$date,$class) ) {
+				$response = $this -> getResponse();
+				$response -> setContent( 'Only one room in a time.' );
 				return $response;
 			}
 

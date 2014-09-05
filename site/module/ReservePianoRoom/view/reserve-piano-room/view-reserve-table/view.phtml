@@ -4,7 +4,7 @@
 
 $dateStringsYMD = generateDateStrings( $first, $last, 'Y-m-d' );
 $dateStringsMD = generateDateStrings( $first, $last, 'm-d' );
-$RecordItems = processData( $resultset, $room );
+$RecordItems = processData( $resultset, $room, $this );
 ?>
 
 <div class="table-responsive center-block table-content" style="margin-top: -20px;">	
@@ -26,21 +26,31 @@ $RecordItems = processData( $resultset, $room );
 				<th class="text-center"><?php echo getClassTime( $class ) ?></th>
 				<?php foreach ( $dateStringsYMD as $date ) : ?>
 					<?php if ( array_key_exists( $date, $RecordItems ) && array_key_exists( $class, $RecordItems[ $date ] ) ): ?>
-						<td class="text-center table-content-light" data-key="" data-display="" data-reservable="false">
-							<?php foreach ( $RecordItems[ $date ][ $class ] as $record ): ?>							
-								<?php echo $record[ 'displayName' ]; ?>
-							<?php endforeach; ?>
-						</td>
+						<?php if ( array_key_exists( $room, $RecordItems[ $date ][ $class ] ) ): ?>	
+							<?php if($RecordItems[ $date ][ $class ][ $room ][ 'uid' ] == $this -> zfcUserIdentity() -> getId()):?>
+								<td class="text-center table-content-self" data-key="" data-display="" data-reservable="false">
+									<?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?>
+								</td>
+							<?php else: ?>
+								<td class="text-center table-content-light" data-key="" data-display="" data-reservable="false">
+									<?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?>
+								</td>							
+							<?php endif;?>
+						<?php else: ?>
+							<td class="text-center table-content-another" data-key="" data-display="" data-reservable="false">
+								<?php echo getRoomText($RecordItems[ $date ][ $class ][ 'room' ],$this);?>
+							</td>
+						<?php endif; ?>
 					<?php else: ?>
 						<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $room ); ?>
-						<?php $data_display = $date . '，' . getClassTime( $class ); ?>					
+			<?php $data_display = $date . '，' . getClassTime( $class ); ?>					
 						<td class="text-center table-content-light" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable; ?>">
 							<span id="reserve" style="display:none"><?php echo $this -> translate( 'reserve' ); ?></span>
 						</td>
 					<?php endif; ?>
-				<?php endforeach; ?>	
+			<?php endforeach; ?>	
 			</tr>
-		<?php endfor; ?>
+<?php endfor; ?>
 	</table>
 </div>
 <div id="dialog-confirm"></div>
@@ -55,11 +65,11 @@ $RecordItems = processData( $resultset, $room );
 			if (reservable !== "false") {
 				if (confirm('<?php echo $this -> translate( 'Confirm reservation' ); ?>' + ':' + dataDisplay)) {
 					jQuery.get('/ReservePianoRoom/m/' + Key, function(data) {
-						if (data === "Success"){
+						if (data === "Success") {
 							Reload();
-						}else if(data === "Exceed"){
+						} else if (data === "Exceed") {
 							alert('Personal reserve limit exceed!');
-						}else{
+						} else {
 							alert('Something Wrong! ...' + data);
 						}
 					});
@@ -98,6 +108,14 @@ $RecordItems = processData( $resultset, $room );
 		color: #FFFFFF;
 		text-shadow: 0px 0px 4px rgba(0%,0%,0%,0.5);	
 	}	
+	.table-content-another{
+		color: #9999FF;
+		text-shadow: 0px 0px 4px rgba(0%,0%,0%,0.5);	
+	}	
+	.table-content-self{
+		color: #9999FF;
+		text-shadow: 0px 0px 4px rgba(0%,0%,0%,0.5);	
+	}
 </style>
 
 
@@ -123,11 +141,11 @@ function weekDescription( $page, $first, $last, $view ) {
 	}
 }
 
-function processData( $resultset, $room ) {
+function processData( $resultset, $room, $view ) {
 	$current = $resultset -> current();
 	$RecordItems = array();
 	while ( $current ) {
-		if ( $current -> room == $room ) {
+		if ( $current -> room == $room || $current -> uid == $view -> zfcUserIdentity() -> getId() ) {
 			if ( !array_key_exists( $current -> date, $RecordItems ) ) {
 				$RecordItems[ $current -> date ] = array();
 			}
@@ -142,6 +160,7 @@ function processData( $resultset, $room ) {
 				'flag' => $current -> flag,
 				'comment' => $current -> comment,
 			);
+			$RecordItems[ $current -> date ][ $current -> class ][ 'room' ] = $current -> room;
 		}
 		$resultset -> next();
 		$current = $resultset -> current();
@@ -151,4 +170,12 @@ function processData( $resultset, $room ) {
 
 function getClassTime( $class ) {
 	return sprintf( '%02d:00 ~ %02d:00', $class + 8, $class + 9 );
+}
+
+function getRoomText( $room, $view ) {
+	switch ($room){
+		case 1: return $view -> translate('Room 1');
+		case 2: return $view -> translate('Room 2');
+		case 3: return $view -> translate('Room 3');
+	}
 }

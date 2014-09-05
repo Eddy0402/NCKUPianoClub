@@ -28,4 +28,20 @@ class ReserveTableQuery
 		return $sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'num' ];
 	}
 
+	public function isPersonReservedInTime($uid, $date, $class){
+		$sql = new Sql( $this -> dbAdapter );
+		$select = $sql -> select();
+		$select -> columns( array( 'num' => new Expression( 'COUNT(*)' ) ) );
+		$select -> where( array(
+			'uid' => $uid,
+			'date' => $date,
+			'class' => $class,
+		) );
+		$select -> from( 'ReserveTable' );
+		if($sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'num' ] > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
