@@ -26,18 +26,17 @@ class Module
 	public function getServiceConfig(){
 		return array(
 			'factories' => array(
-				'ReserveTable' => function($sm) {
-					$tableGateway = $sm -> get('ReserveTableGateway');
-					$table = new ReserveTable($tableGateway);
-					return $table;
+				'ReservePianoRoom\Model\ReserveTable' => function($sm) {
+					$tableGateway = $sm -> get('ReservePianoRoom\Model\ReserveTableGateway');
+					return $table = new ReserveTable($tableGateway);
 				},
-				'ReserveTableGateway' => function($sm){
+				'ReservePianoRoom\Model\ReserveTableGateway' => function($sm){
 					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype ->setArrayObjectPrototype(new Record());
 					return new TableGateway('ReserveTable',$dbAdapter,null,$resultSetPrototype);
 				},
-				'ReserveTableQuery' => function($sm){
+				'ReservePianoRoom\Model\ReserveTableQuery' => function($sm){
 					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');
 					return new ReserveTableQuery($dbAdapter);
 				},

@@ -9,10 +9,6 @@ class ViewReserveTableController extends AbstractActionController
 {
 
 	public function indexAction() {
-
-		$first = new \DateTime( 'this week' );
-		$last = new \DateTime( 'this week +6 days' );
-		$this -> getReserveTableQuery() -> getPersonReservedCount( 1, $first -> format( 'y-m-d' ), $last -> format( 'y-m-d' ) );
 		return new ViewModel();
 	}
 
@@ -42,7 +38,7 @@ class ViewReserveTableController extends AbstractActionController
 	public function getReserveTable() {
 		if ( !$this -> ReserveTable ) {
 			$sm = $this -> getServiceLocator();
-			$this -> ReserveTable = $sm -> get( 'ReserveTable' );
+			$this -> ReserveTable = $sm -> get( 'ReservePianoRoom\Model\ReserveTable' );
 		}
 		return $this -> ReserveTable;
 	}
@@ -50,7 +46,7 @@ class ViewReserveTableController extends AbstractActionController
 	public function getReserveTableQuery() {
 		if ( !$this -> ReserveTableQuery ) {
 			$sm = $this -> getServiceLocator();
-			$this -> ReserveTableQuery = $sm -> get( 'ReserveTableQuery' );
+			$this -> ReserveTableQuery = $sm -> get( 'ReservePianoRoom\Model\ReserveTableQuery' );
 		}
 		return $this -> ReserveTableQuery;
 	}

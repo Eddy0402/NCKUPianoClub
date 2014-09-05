@@ -16,13 +16,24 @@ class ModifyReserveTableController extends AbstractActionController
 			$room = ( int ) $this -> params() -> fromRoute( 'room', 0 );
 			$method = $this -> params() -> fromRoute( 'method' );
 
+
+			$first = new \DateTime( 'this week +7 days' );
+			$last = new \DateTime( 'this week +13 days' );
+			$personalReserveDay = $this -> getReserveTableQuery() -> getPersonReservedCount(
+				$this -> zfcUserAuthentication() -> getIdentity() -> getId(), $first -> format( 'y-m-d' ), $last -> format( 'y-m-d' )
+			);
+			if ( $personalReserveDay >= 7 ) {
+				$response = $this -> getResponse();
+				$response -> setContent( 'Exceed' );
+				return $response;
+			}
+
 			$Table = $this -> getReserveTable();
 			if ( $Table -> isRoomReserved( $date, $class, $room ) == false ) {
 				$this -> AddRecord(
 					$Table, $date, $class, $room, $this -> zfcUserAuthentication() -> getIdentity() -> getId()
 				);
 			}
-
 			$response = $this -> getResponse();
 			$response -> setContent( 'Success' );
 			return $response;
@@ -47,11 +58,20 @@ class ModifyReserveTableController extends AbstractActionController
 	public function getReserveTable() {
 		if ( !$this -> ReserveTable ) {
 			$sm = $this -> getServiceLocator();
-			$this -> ReserveTable = $sm -> get( 'ReserveTable' );
+			$this -> ReserveTable = $sm -> get( 'ReservePianoRoom\Model\ReserveTable' );
 		}
 		return $this -> ReserveTable;
 	}
 
+	public function getReserveTableQuery() {
+		if ( !$this -> ReserveTableQuery ) {
+			$sm = $this -> getServiceLocator();
+			$this -> ReserveTableQuery = $sm -> get( 'ReservePianoRoom\Model\ReserveTableQuery' );
+		}
+		return $this -> ReserveTableQuery;
+	}
+
 	protected $ReserveTable;
+	protected $ReserveTableQuery;
 
 }

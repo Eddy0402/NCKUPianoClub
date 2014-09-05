@@ -33,13 +33,11 @@ $RecordItems = processData( $resultset, $room );
 						</td>
 					<?php else: ?>
 						<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $room ); ?>
-						<?php $data_display = $date . '，' . sprintf( '%02d:00 ~ %02d:00', $class + 8, $class + 9 ); ?>					
+						<?php $data_display = $date . '，' . getClassTime( $class ); ?>					
 						<td class="text-center table-content-light" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable; ?>">
 							<span id="reserve" style="display:none"><?php echo $this -> translate( 'reserve' ); ?></span>
 						</td>
 					<?php endif; ?>
-
-
 				<?php endforeach; ?>	
 			</tr>
 		<?php endfor; ?>
@@ -57,10 +55,13 @@ $RecordItems = processData( $resultset, $room );
 			if (reservable !== "false") {
 				if (confirm('<?php echo $this -> translate( 'Confirm reservation' ); ?>' + ':' + dataDisplay)) {
 					jQuery.get('/ReservePianoRoom/m/' + Key, function(data) {
-						if (data === "Success")
+						if (data === "Success"){
 							Reload();
-						else
+						}else if(data === "Exceed"){
+							alert('Personal reserve limit exceed!');
+						}else{
 							alert('Something Wrong! ...' + data);
+						}
 					});
 				}
 			} else {

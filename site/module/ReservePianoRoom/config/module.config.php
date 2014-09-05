@@ -3,7 +3,6 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'ReservePianoRoom\Controller\ViewReserveTable' => 'ReservePianoRoom\Controller\ViewReserveTableController',
-			'ReservePianoRoom\Controller\ViewReserveTableData' => 'ReservePianoRoom\Controller\ViewReserveTableDataController',
 			'ReservePianoRoom\Controller\ModifyReserveTable' => 'ReservePianoRoom\Controller\ModifyReserveTableController',
 		),
 	),
