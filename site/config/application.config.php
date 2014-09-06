@@ -8,11 +8,11 @@
 return array(
     'modules' => array(
         'Application',
-		'User',
         'ReservePianoRoom',
         'Activity',
         'ZfcBase',
         'ZfcUser',
+		'User',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
