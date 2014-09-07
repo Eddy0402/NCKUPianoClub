@@ -25,10 +25,12 @@ $RecordItems = processData( $resultset, $room, $this );
 			<tr>
 				<th class="text-center"><?php echo getClassTime( $class ) ?></th>
 				<?php foreach ( $dateStringsYMD as $date ) : ?>
+					<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $room ); ?>
+					<?php $data_display = $date . '，' . getClassTime( $class ); ?>		
 					<?php if ( array_key_exists( $date, $RecordItems ) && array_key_exists( $class, $RecordItems[ $date ] ) ): ?>
 						<?php if ( array_key_exists( $room, $RecordItems[ $date ][ $class ] ) ): ?>	
 							<?php if($RecordItems[ $date ][ $class ][ $room ][ 'uid' ] == $this -> zfcUserIdentity() -> getId()):?>
-								<td class="text-center table-content-self" data-key="" data-display="" data-reservable="false">
+								<td class="text-center table-content-self" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="false" data-self="true">
 									<?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?>
 								</td>
 							<?php else: ?>
@@ -37,13 +39,13 @@ $RecordItems = processData( $resultset, $room, $this );
 								</td>							
 							<?php endif;?>
 						<?php else: ?>
-							<td class="text-center table-content-another" data-key="" data-display="" data-reservable="false">
+							<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $RecordItems[ $date ][ $class ][ 'room' ]); ?>
+							<?php $data_display = $date . '，' . getClassTime( $class ); ?>									
+							<td class="text-center table-content-another" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="false" data-self="true">
 								<?php echo getRoomText($RecordItems[ $date ][ $class ][ 'room' ],$this);?>
 							</td>
 						<?php endif; ?>
-					<?php else: ?>
-						<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $room ); ?>
-			<?php $data_display = $date . '，' . getClassTime( $class ); ?>					
+					<?php else: ?>									
 						<td class="text-center table-content-light" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable; ?>">
 							<span id="reserve" style="display:none"><?php echo $this -> translate( 'reserve' ); ?></span>
 						</td>
@@ -66,6 +68,7 @@ $RecordItems = processData( $resultset, $room, $this );
 				if (confirm('<?php echo $this -> translate( 'Confirm reservation' ); ?>' + ':' + dataDisplay)) {
 					jQuery.get('/ReservePianoRoom/m/' + Key, function(data) {
 						if (data === "Success") {
+							$(this).attr("data-reservable","false");
 							Reload();
 						} else if (data === "Exceed") {
 							alert('Personal reserve limit exceed!');
@@ -74,9 +77,19 @@ $RecordItems = processData( $resultset, $room, $this );
 						}
 					});
 				}
-			} else {
-				//alert('<?php echo $this -> translate( 'Not able to reserve!' ); ?>');
-			}
+			} else if($(this).attr("data-self") === "true"){
+				if (confirm('<?php echo $this -> translate( 'Cancel reservation' ); ?>' + ':' + dataDisplay)) {
+					jQuery.get('/ReservePianoRoom/m/' + Key + 'm/cancel/', function(data) {
+						if (data === "Success") {
+							$(this).attr("data-reservable","true");
+							$(this).attr("data-self","false");
+							Reload();
+						} else {
+							alert('Something Wrong! ...' + data);
+						}
+					});
+				}
+			} 
 			return false;
 		}).mouseover(function() {
 			var reservable = $(this).attr("data-reservable");

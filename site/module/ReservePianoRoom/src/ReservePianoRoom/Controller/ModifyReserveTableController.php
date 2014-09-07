@@ -9,6 +9,14 @@ class ModifyReserveTableController extends AbstractActionController
 {
 
 	public function modifyAction() {
+		$method = $this -> params() -> fromRoute( 'method' );
+		switch ($method){
+			case 'reserve' : return $this->reserve();
+			case 'cancel' : return $this->cancel();
+		}
+	}
+	
+	private function reserve(){
 		if ( $this -> zfcUserAuthentication() -> hasIdentity() ) {
 
 			$uid = $this -> zfcUserAuthentication() -> getIdentity() -> getId();
@@ -16,7 +24,6 @@ class ModifyReserveTableController extends AbstractActionController
 			$date = $this -> params() -> fromRoute( 'date' );
 			$class = ( int ) $this -> params() -> fromRoute( 'class', 0 );
 			$room = ( int ) $this -> params() -> fromRoute( 'room', 0 );
-			$method = $this -> params() -> fromRoute( 'method' );
 
 			$first = new \DateTime( 'this week +7 days' );
 			$last = new \DateTime( 'this week +13 days' );
@@ -37,7 +44,7 @@ class ModifyReserveTableController extends AbstractActionController
 
 			$Table = $this -> getReserveTable();
 			if ( $Table -> isRoomReserved( $date, $class, $room ) == false ) {
-				$this -> AddRecord(
+				$this -> addRecord(
 					$Table, $date, $class, $room, $this -> zfcUserAuthentication() -> getIdentity() -> getId()
 				);
 			}
@@ -50,8 +57,34 @@ class ModifyReserveTableController extends AbstractActionController
 			return $response;
 		}
 	}
+	
+	private function cancel(){
+		if ( $this -> zfcUserAuthentication() -> hasIdentity() ) {
+			$uid = $this -> zfcUserAuthentication() -> getIdentity() -> getId();
+			
+			$date = $this -> params() -> fromRoute( 'date' );
+			$class = ( int ) $this -> params() -> fromRoute( 'class', 0 );
+			$room = ( int ) $this -> params() -> fromRoute( 'room', 0 );
+			
+			if ( $this -> getReserveTableQuery() -> isPersonReservedRoom($uid,$date,$class,$room) ) {
+				$this -> deleteRecord(
+					$this -> getReserveTable(), $date, $class, $room, $this -> zfcUserAuthentication() -> getIdentity() -> getId()
+				);
+				$response = $this -> getResponse();
+				$response -> setContent( 'Success' );
+				return $response;
+			}
+			$response = $this -> getResponse();
+			$response -> setContent( 'Something error!' );
+			return $response;
+		} else {
+			$response = $this -> getResponse();
+			$response -> setContent( 'Not logged in.' );
+			return $response;
+		}
+	}
 
-	private function AddRecord( $Table, $date, $class, $room, $uid ) {
+	private function addRecord( $Table, $date, $class, $room, $uid ) {
 		$record = new Record();
 		$record -> exchangeArray( array(
 			'date' => $date,
@@ -60,6 +93,17 @@ class ModifyReserveTableController extends AbstractActionController
 			'uid' => $uid,
 		) );
 		$Table -> saveRecord( $record );
+	}
+	
+	private function deleteRecord($Table, $date, $class, $room, $uid ){
+		$record = new Record();
+		$record -> exchangeArray( array(
+			'date' => $date,
+			'class' => $class,
+			'room' => $room,
+			'uid' => $uid,
+		) );
+		$Table -> deleteRecord( $record );
 	}
 
 	public function getReserveTable() {

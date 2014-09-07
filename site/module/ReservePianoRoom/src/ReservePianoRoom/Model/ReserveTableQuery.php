@@ -44,4 +44,22 @@ class ReserveTableQuery
 			return false;
 		}
 	}
+	
+	public function isPersonReservedRoom($uid, $date, $class, $room){
+		$sql = new Sql( $this -> dbAdapter );
+		$select = $sql -> select();
+		$select -> columns( array( 'num' => new Expression( 'COUNT(*)' ) ) );
+		$select -> where( array(
+			'uid' => $uid,
+			'date' => $date,
+			'class' => $class,
+			'room' => $room,
+		) );
+		$select -> from( 'ReserveTable' );
+		if($sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'num' ] > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

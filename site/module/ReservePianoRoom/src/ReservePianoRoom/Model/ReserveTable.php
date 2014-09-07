@@ -63,8 +63,12 @@ class ReserveTable
 		$this -> tableGateway -> insert( $data );
 	}
 
-	public function deleteRecord( $reserve_id ) {
-		$this -> tableGateway -> delete( array( 'reserve_id' => ( int ) $reserve_id ) );
+	public function deleteRecord( Record $record ) {
+		$this -> tableGateway -> delete( array( 
+			'room' => $record -> room,
+			'date' => $record -> date,
+			'class' => $record -> class,			
+		) );
 	}
 
 }
