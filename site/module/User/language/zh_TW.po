@@ -1,0 +1,133 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ZfcUser\n"
+"Report-Msgid-Bugs-To: zf-devteam@zend.com\n"
+"POT-Creation-Date: 2014-09-06 23:50+0800\n"
+"PO-Revision-Date: 2014-09-07 17:40+0800\n"
+"Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
+"Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: translate\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: language/msgIds.php:6
+msgid "Username"
+msgstr "登入名稱"
+
+#: language/msgIds.php:7
+msgid "Email"
+msgstr "E-Mail"
+
+#: language/msgIds.php:8
+msgid "New Email"
+msgstr "新E-Mail"
+
+#: language/msgIds.php:9
+msgid "Verify New Email"
+msgstr "確認新Email"
+
+#: language/msgIds.php:10
+msgid "Display Name"
+msgstr "姓名"
+
+#: language/msgIds.php:11
+msgid "Password"
+msgstr "密碼"
+
+#: language/msgIds.php:12
+msgid "Password Verify"
+msgstr "確認密碼"
+
+#: language/msgIds.php:13
+msgid "Current Password"
+msgstr "目前密碼"
+
+#: language/msgIds.php:14
+msgid "Verify New Password"
+msgstr "確認新密碼"
+
+#: language/msgIds.php:15
+msgid "New Password"
+msgstr "新密碼"
+
+#: language/msgIds.php:16
+msgid "Please type the following text"
+msgstr "請輸入以下文字"
+
+#: language/msgIds.php:17
+msgid "Submit"
+msgstr "送出"
+
+#: language/msgIds.php:18 view/zfc-user/user/login.phtml:1
+msgid "Sign In"
+msgstr "登入"
+
+#: language/msgIds.php:19 view/zfc-user/user/register.phtml:1
+msgid "Register"
+msgstr "註冊"
+
+#: language/msgIds.php:20
+msgid "No record matching the input was found"
+msgstr "找不到相關資料"
+
+#: language/msgIds.php:21
+msgid "A record matching the input was found"
+msgstr "找到了相關紀錄"
+
+#: language/msgIds.php:22
+msgid "Authentication failed. Please try again."
+msgstr "登入失敗，請重試"
+
+#: view/zfc-user/user/changepassword.phtml:1
+#, php-format
+msgid "Change Password for %s"
+msgstr "為 %s 更改密碼"
+
+#: view/zfc-user/user/changepassword.phtml:3
+msgid "Password changed successfully."
+msgstr "密碼成功更改"
+
+#: view/zfc-user/user/changepassword.phtml:5
+msgid "Unable to update your password. Please try again."
+msgstr "無法更新密碼，請重試"
+
+#: view/zfc-user/user/index.phtml:6
+msgid "Welcome back"
+msgstr "歡迎回來"
+
+#: view/zfc-user/user/index.phtml:7
+msgid "Sign Out"
+msgstr "登出"
+
+#: view/zfc-user/user/register.phtml:5
+msgid "Registration is disabled"
+msgstr "註冊已關閉"
+
+#: view/zfc-user/user/login.phtml:31
+msgid "Not registered?"
+msgstr "尚未加入?"
+
+#: view/zfc-user/user/login.phtml:31
+msgid "Sign up!"
+msgstr "加入鋼琴社!"
+
+#: view/zfc-user/user/changeemail.phtml:1
+#, php-format
+msgid "Change Email for %s"
+msgstr "為 %s 更改Email"
+
+#: view/zfc-user/user/changeemail.phtml:3
+msgid "Email address changed successfully."
+msgstr "成功修改Email"
+
+#: view/zfc-user/user/changeemail.phtml:5
+msgid "Unable to update your email address. Please try again."
+msgstr "無法更新Email，請重試"
+
+#~ msgid "Hello"
+#~ msgstr "近日可好"

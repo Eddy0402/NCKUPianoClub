@@ -77,7 +77,7 @@ class NCKUMail extends AbstractAdapter implements ServiceManagerAwareInterface{
             }
         }
 		
-		if($userObject -> getState == 2){
+		if($userObject -> getState() == 2){
 			$imap_return = imap_open('{mail.ncku.edu.tw/ssl/novalidate-cert}INBOX',$identity,$credential);
 			if(imap_ping($imap_return) != 1){	
 				$event->setCode(AuthenticationResult::FAILURE_CREDENTIAL_INVALID)

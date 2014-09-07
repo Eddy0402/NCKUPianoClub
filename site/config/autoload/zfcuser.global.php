@@ -52,7 +52,6 @@ $settings = array(
      */
     'auth_adapters' => array( 
 		101 => 'User\Authentication\Adapter\NCKUMail',
-		//100 => 'ZfcUser\Authentication\Adapter\Db'
 	),
 
     /**
@@ -84,7 +83,7 @@ $settings = array(
      *
      * Accepted values: positive int value
      */
-    //'login_form_timeout' => 300,
+    'login_form_timeout' => 300,
 
     /**
      * Registration form timeout
@@ -94,7 +93,7 @@ $settings = array(
      *
      * Accepted values: positive int value
      */
-    //'user_form_timeout' => 300,
+    'user_form_timeout' => 300,
 
     /**
      * Login After Registration
@@ -104,7 +103,7 @@ $settings = array(
      *
      * Accepted values: boolean true or false
      */
-    'login_after_registration' => true,
+    'login_after_registration' => false,
 
     /**
      * Registration Form Captcha
@@ -112,7 +111,7 @@ $settings = array(
      * Determines if a captcha should be utilized on the user registration form.
      * Default value is false.
      */
-    'use_registration_form_captcha' => true,
+    'use_registration_form_captcha' => false,
 
     /**
      * Form Captcha Options
