@@ -31,23 +31,25 @@ $RecordItems = processData( $resultset, $room, $this );
 						<?php if ( array_key_exists( $room, $RecordItems[ $date ][ $class ] ) ): ?>	
 							<?php if($RecordItems[ $date ][ $class ][ $room ][ 'uid' ] == $this -> zfcUserIdentity() -> getId()):?>
 								<td class="text-center table-content-self" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="false" data-self="true">
-									<?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?>
+									<div><?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?></div>
+									<span id="reserve" class="table-content-light" style="display:none"><?php echo $this -> translate( 'cancel' ); ?></span>
 								</td>
 							<?php else: ?>
 								<td class="text-center table-content-light" data-key="" data-display="" data-reservable="false">
-									<?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?>
+									<div><?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?></div>
 								</td>							
 							<?php endif;?>
 						<?php else: ?>
 							<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $RecordItems[ $date ][ $class ][ 'room' ]); ?>
 							<?php $data_display = $date . '，' . getClassTime( $class ); ?>									
 							<td class="text-center table-content-another" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="false" data-self="true">
-								<?php echo getRoomText($RecordItems[ $date ][ $class ][ 'room' ],$this);?>
+								<div><?php echo getRoomText($RecordItems[ $date ][ $class ][ 'room' ],$this);?></div>
+								<span id="reserve" class="table-content-light" style="display:none"><?php echo $this -> translate( 'cancel' ); ?></span>
 							</td>
 						<?php endif; ?>
 					<?php else: ?>									
-						<td class="text-center table-content-light" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable; ?>">
-							<span id="reserve" style="display:none"><?php echo $this -> translate( 'reserve' ); ?></span>
+						<td class="text-center" data-key="<?php echo $data_key ?>" data-display="<?php echo $data_display; ?>" data-reservable="<?php echo $reservable; ?>">
+							<span id="reserve" class="table-content-light" style="display:none"><?php echo $this -> translate( 'reserve' ); ?></span>
 						</td>
 					<?php endif; ?>
 			<?php endforeach; ?>	
@@ -93,15 +95,15 @@ $RecordItems = processData( $resultset, $room, $this );
 			return false;
 		}).mouseover(function() {
 			var reservable = $(this).attr("data-reservable");
-			if (reservable === "true") {
+			var self = $(this).attr("data-self");
+			if (reservable === "true" || self === "true") {
 				$(this).find('span').fadeIn(0);
+				$(this).find('div').fadeOut(0);
 			}
 			return false;
 		}).mouseout(function() {
-			var reservable = $(this).attr("data-reservable");
-			if (reservable === "true") {
-				$(this).find('span').fadeOut(0);
-			}
+			$(this).find('span').fadeOut(0);
+			$(this).find('div').fadeIn(0);
 			return false;
 		});
 	});

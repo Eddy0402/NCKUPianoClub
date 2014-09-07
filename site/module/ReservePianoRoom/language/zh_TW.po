@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-04 00:56+0800\n"
-"PO-Revision-Date: 2014-09-04 01:04+0800\n"
+"POT-Creation-Date: 2014-09-07 23:31+0800\n"
+"PO-Revision-Date: 2014-09-07 23:31+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -15,50 +15,61 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:2
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:104
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:2
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:113
 msgid "Reserve Piano Room"
 msgstr "琴點系統"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:107
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:116
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:192
 msgid "Room 1"
 msgstr "琴房一"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:108
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:117
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:193
 msgid "Room 2"
 msgstr "琴房二"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:109
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:118
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:194
 msgid "Room 3"
 msgstr "琴房三"
 
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:35
-msgid "Current Week"
-msgstr "當週"
-
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:37
-msgid "Next Week"
-msgstr "下週"
-
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:39
-msgid "Last Week"
-msgstr "上週"
-
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:47
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:16
 msgid "Time \\ Date"
 msgstr "時間 \\ 日期"
 
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:71
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:35
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:47
+msgid "cancel"
+msgstr "取消"
+
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:52
 msgid "reserve"
 msgstr "借用"
 
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:92
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:70
 msgid "Confirm reservation"
 msgstr "確認借用"
 
-#: ../view/reserve-piano-room/view-reserve-table-data/view.phtml:99
-msgid "Not able to reserve!"
-msgstr "此時段無法借用！"
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:83
+msgid "Cancel reservation"
+msgstr "取消借用"
+
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:149
+msgid "Current Week"
+msgstr "當週"
+
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:151
+msgid "Next Week"
+msgstr "下週"
+
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:153
+msgid "Last Week"
+msgstr "上週"
+
+#~ msgid "Not able to reserve!"
+#~ msgstr "此時段無法借用！"
 
 #, fuzzy
 #~ msgid "Reserve Paino Room"
