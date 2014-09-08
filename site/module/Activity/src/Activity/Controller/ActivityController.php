@@ -13,6 +13,12 @@ class ActivityController extends AbstractActionController
         return new ViewModel();
     }
 
-
+	public function postAction(){
+		return new ViewModel();
+	}
+	
+	public function contentAction(){
+		return new ViewModel();
+	}
 }
 
