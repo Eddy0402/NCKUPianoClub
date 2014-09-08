@@ -20,5 +20,9 @@ class ActivityController extends AbstractActionController
 	public function contentAction(){
 		return new ViewModel();
 	}
+	
+	public function categoryAction(){
+		return new ViewModel();
+	}
 }
 

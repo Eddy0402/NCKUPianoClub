@@ -55,6 +55,22 @@ return array(
 							),
 						),
 					),
+					'content' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route' => '/category/:category',
+							'constraints' => array(
+								'year' => '[0-9]*',
+								'month' => '[0-9]*',
+								'date' => '[0-9]*',
+								'article' => '[-a-zA-Z0-9]*',
+							),
+							'defaults' => array(
+								'controller' => 'Activity\Controller\Activity',
+								'action' => 'category',
+							),
+						),
+					),
 				),
 			),
 		),
