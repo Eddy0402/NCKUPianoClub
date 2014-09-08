@@ -15,9 +15,9 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 	$(function() {
 
 		// Slide load
-		$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
-		$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
-		$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+		$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
+		$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
+		$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
 
 		$("#myCarousel").on('slide.bs.carousel', function(e) {
 			var slideFrom = $(this).find('.active').index();
@@ -26,23 +26,23 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 				content_2 = content_0 - 1;
 				content_1 = content_0 + 1;
 				if (slideFrom !== 1)
-					$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
+					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
 				if (slideFrom !== 2)
-					$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+					$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
 			} else if (slideTo === 1) {
 				content_0 = content_1 - 1;
 				content_2 = content_1 + 1;
 				if (slideFrom !== 0)
-					$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
+					$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
 				if (slideFrom !== 2)
-					$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+					$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
 			} else {
 				content_0 = content_2 + 1;
 				content_1 = content_2 - 1;
 				if (slideFrom !== 0)
-					$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
+					$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
 				if (slideFrom !== 1)
-					$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
+					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
 			}
 		});
 
@@ -61,9 +61,9 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 		$("#room" + room).toggleClass("btn-clicked");
 		room = newroom;
 		$("#room" + room).toggleClass("btn-clicked");
-		$("#content-0").load("page/" + content_0 + "/room/" + room + "/");
-		$("#content-1").load("page/" + content_1 + "/room/" + room + "/");
-		$("#content-2").load("page/" + content_2 + "/room/" + room + "/");
+		$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
+		$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
+		$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
 	}
 	function Reload() {
 		reload(room);

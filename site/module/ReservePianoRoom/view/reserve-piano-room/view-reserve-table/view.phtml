@@ -68,7 +68,7 @@ $RecordItems = processData( $resultset, $room, $this );
 			var reservable = $(this).attr("data-reservable");
 			if (reservable !== "false") {
 				if (confirm('<?php echo $this -> translate( 'Confirm reservation' ); ?>' + ':' + dataDisplay)) {
-					jQuery.get('/ReservePianoRoom/m/' + Key, function(data) {
+					jQuery.get("/ReservePianoRoom/m/" + Key, function(data) {
 						if (data === "Success") {
 							$(this).attr("data-reservable","false");
 							Reload();

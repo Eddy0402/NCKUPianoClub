@@ -20,46 +20,49 @@ return array(
 	
 	'router' => array(
 		'routes' => array(
-			'ViewReserveTable' => array(
-				'type' => 'Segment',
+			'ReservePianoRoom' => array(
+				'type' => 'Zend\Mvc\Router\Http\Literal',
 				'options' => array(
-					'route' => '/ReservePianoRoom/',
+					'route' => '/ReservePianoRoom',
 					'defaults' => array(
 						'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
 						'action' => 'index',
 					),
 				),
-			),
-			'ViewReserveTableTable' => array(
-				'type' => 'Segment',
-				'options' => array(
-					'route' => '/ReservePianoRoom/page/:page/[room/:room/]',
-					'constraints' => array(
-						'page'   => '[-0-9]*',
-						'room'   => '[1-3]',
+				'may_terminate' => true,
+				'child_routes' => array(
+					'ViewReserveTableTable' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route' => '/page/:page[/room/:room]',
+							'constraints' => array(
+								'page'   => '[-0-9]*',
+								'room'   => '[1-3]',
+							),
+							'defaults' => array(
+								'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
+								'action' => 'view',
+								'page' => 0,
+								'room' => 1,
+							),
+						),
 					),
-					'defaults' => array(
-						'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
-						'action' => 'view',
-						'page' => 0,
-						'room' => 1,
-					),
-				),
-			),
-			'ModifyReserveTable' => array(
-				'type' => 'Segment',
-				'options' => array(
-					'route' => '/ReservePianoRoom/m/d/:date/c/:class/r/:room/[m/:method/]',
-					'constraints' => array(
-						'date'   => '[-0-9]*',
-						'class'  => '[0-9]+',
-						'room'   => '[1-3]+',
-						'method' => '[a-z]+',
-					),
-					'defaults' => array(
-						'controller' => 'ReservePianoRoom\Controller\ModifyReserveTable',
-						'action' => 'modify',
-						'method' => 'reserve',
+					'ModifyReserveTable' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route' => '/m/d/:date/c/:class/r/:room/[m/:method/]',
+							'constraints' => array(
+								'date'   => '[-0-9]*',
+								'class'  => '[0-9]+',
+								'room'   => '[1-3]+',
+								'method' => '[a-z]+',
+							),
+							'defaults' => array(
+								'controller' => 'ReservePianoRoom\Controller\ModifyReserveTable',
+								'action' => 'modify',
+								'method' => 'reserve',
+							),
+						),
 					),
 				),
 			),
