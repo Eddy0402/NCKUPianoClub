@@ -64,7 +64,7 @@ class ReserveTable
 	}
 
 	public function deleteRecord( Record $record ) {
-		$this -> tableGateway -> delete( array( 
+		return $this -> tableGateway -> delete( array( 
 			'room' => $record -> room,
 			'date' => $record -> date,
 			'class' => $record -> class,			
