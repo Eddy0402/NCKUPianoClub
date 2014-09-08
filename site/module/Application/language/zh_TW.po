@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-04 00:56+0800\n"
-"PO-Revision-Date: 2014-09-04 01:03+0800\n"
+"PO-Revision-Date: 2014-09-07 23:47+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -144,7 +144,7 @@ msgstr " "
 
 #: ../view/application/index/index.phtml:27
 msgid "Recent Activity"
-msgstr "框架應用"
+msgstr "最新活動"
 
 #~ msgid "Skeleton Application"
 #~ msgstr "空專案"
