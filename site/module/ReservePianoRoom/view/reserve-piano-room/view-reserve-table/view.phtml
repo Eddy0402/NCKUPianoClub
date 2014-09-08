@@ -81,10 +81,10 @@ $RecordItems = processData( $resultset, $room, $this );
 				}
 			} else if($(this).attr("data-self") === "true"){
 				if (confirm('<?php echo $this -> translate( 'Cancel reservation' ); ?>' + ':' + dataDisplay)) {
+					$(this).attr("data-reservable","true");
+					$(this).attr("data-self","false");
 					jQuery.get('/ReservePianoRoom/m/' + Key + 'm/cancel/', function(data) {
 						if (data === "Success") {
-							$(this).attr("data-reservable","true");
-							$(this).attr("data-self","false");
 							Reload();
 						} else {
 							alert('Something Wrong! ...' + data);
