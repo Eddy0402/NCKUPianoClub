@@ -4,6 +4,8 @@ namespace Activity;
 
 use Activity\Model\Post;
 use Activity\Model\PostTable;
+use Activity\Form\NewPostForm;
+use Activity\Form\NewPostFormInputFilter;
 
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
@@ -29,7 +31,7 @@ class Module
 		return array(
 			'factories' => array(
 				'Activity\Model\PostTable' => function($sm) {
-					$tableGateway = $sm -> get('ReservePianoRoom\Model\ReserveTableGateway');
+					$tableGateway = $sm -> get('Activity\Model\PostTableGateway');
 					return $table = new PostTable($tableGateway);
 				},
 				'Activity\Model\PostTableGateway' => function($sm){
@@ -42,9 +44,13 @@ class Module
 					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');
 					return new PostTableQuery($dbAdapter);
 				},
-			),
-			'invokables' => array(
-				'Activity\Form\NewPostForm' => 'Activity\Form\NewPostForm',
+				'Activity\Form\NewPostForm' => function($sm){
+					$inputFilter = $sm -> get('Activity\Form\NewPostFormInputFilter');
+					return new NewPostForm($inputFilter);
+				},
+				'Activity\Form\NewPostFormInputFilter' => function($sm){
+					return new NewPostFormInputFilter();
+				},
 			),
 		);
 	}

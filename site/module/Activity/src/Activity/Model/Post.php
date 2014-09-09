@@ -9,14 +9,14 @@ namespace Activity\Model;
  */
 class Post
 {
-	private $id;
-	private $uid;
-	private $category;
-	private $title;
-	private $content;
-	private $sticky_posts;
+	public $id;
+	public $uid;
+	public $category;
+	public $title;
+	public $content;
+	public $sticky_posts;
 	
-	private $userData;
+	public $userData;
 
 	public function exchangeArray( $data ) {
 		$this -> id = (!empty( $data[ 'id' ] )) ? $data[ 'id' ] : null;

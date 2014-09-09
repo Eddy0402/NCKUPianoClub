@@ -19,7 +19,7 @@ class PostTable
 		return $resultSet -> buffer();
 	}
 
-	public function getRecordByDate( $dateStart, $dateEnd ) {
+	public function getPostByDate( $dateStart, $dateEnd ) {
 		$resultSet = $this -> tableGateway -> select( function(Select $select)use($dateStart, $dateEnd) {
 			$select -> where( array(
 				new Between( 'date', $dateStart, $dateEnd ),
@@ -37,20 +37,15 @@ class PostTable
 		return $resultSet -> current();
 	}
 
-	public function saveRecord( Record $record ) {
+	public function savePost( Post $post ) {
 		$data = array(
-			'reserve_id' => $record -> reserve_id,
-			'room' => $record -> room,
-			'date' => $record -> date,
-			'class' => $record -> class,
-			'uid' => $record -> uid,
-			'flag' => $record -> flag,
-			'comment' => $record -> comment,
+			'uid' => $post -> uid,
+			'category' => $post -> category,
+			'title' => $post -> title,
+			'content' => $post -> content,
+			'sticky_posts' => $post -> sticky_posts,
 		);
-		$r = $this -> getSingleRecord( $record -> date, $record -> class, $record -> room );
-		if ( $r ) {
-			deleteRecord( $r -> reserve_id );
-		}
+		//TODO: check if update
 		$this -> tableGateway -> insert( $data );
 	}
 

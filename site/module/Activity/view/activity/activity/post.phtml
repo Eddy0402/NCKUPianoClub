@@ -1,0 +1,78 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('activity/post'))->prepare();
+$form->setAttribute('method', 'post');
+$form->setAttribute('class','form-horizontal');
+$form->setAttribute('role','form');
+?>
+
+<h1 class="text-center"> <?=$this -> translate('New Post');?> </h1>
+
+<div class="container">
+<div class="col-lg-1"></div>
+<div class="main-text col-lg-10">
+
+<?php echo $this->form()->openTag($form) ?>
+
+    <?php foreach ($form as $element): ?>				
+			<?php if ($element instanceof Zend\Form\Element\Submit): ?>
+				<div class="form-group">		
+					<div class="col-sm-12 btn">
+					<?php $element -> setAttribute('class', 'btn btn-default'); ?>
+					<?php echo $this->formSubmit($element) ?>
+					</div>
+				</div>
+			<?php elseif ($element instanceof Zend\Form\Element\Radio): ?>
+				<div class="form-group">
+					<?php $element -> setLabelAttributes(array('class'=>'col-sm-2 control-label')); ?>
+					<?php echo $this->formLabel($element) ?>
+					<div class="col-sm-10">		
+						<?php $element -> setLabelAttributes(array(
+							'class'=>'col-sm-4 text-center thumbnail',
+							'style'=>'margin-bottom:0px;',
+						)); ?>
+						<?php echo $this -> formRadio($element);  ?>
+					</div>
+				</div>
+			<?php elseif ($element instanceof Zend\Form\Element\Checkbox): ?>
+				<div class="form-group">
+					<?php $element -> setLabelAttributes(array('class'=>'col-sm-2 control-label')); ?>
+					<?php echo $this->formLabel($element) ?>
+					<div class="col-sm-10">
+						<div class="thumbnail" style="margin-bottom:0px;">
+							<?php $element -> setAttribute('class','form-control'); ?>
+							<?php echo $this -> formCheckBox($element);  ?>
+						</div>
+					</div>
+				</div>
+			<?php elseif ($element instanceof Zend\Form\Element\Csrf): ?>
+				<?php echo $this->formElement($element) ?>
+			<?php elseif ($element instanceof Zend\Form\Element\Textarea): ?>
+				<div class="form-group">
+					<?php $element -> setLabelAttributes(array('class'=>'col-sm-2 control-label')); ?>
+					<?php echo $this->formLabel($element) ?>
+					<div class="col-sm-10">
+						<?php $element -> setAttribute('class','form-control'); ?>
+						<?php $element -> setAttribute('style','height:250px;'); ?>
+						<?php echo $this->formTextarea($element)  ?>
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="form-group">
+					<?php $element -> setLabelAttributes(array('class'=>'col-sm-2 control-label')); ?>
+					<?php echo $this->formLabel($element) ?>
+					<div class="col-sm-10">
+						<?php $element -> setAttribute('class','form-control'); ?>
+						<?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+					</div>
+				</div>
+			<?php endif ?>
+    <?php endforeach ?>
+    <?php if ($this->redirect): ?>
+        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+    <?php endif ?>
+<?php echo $this->form()->closeTag() ?>
+		
+</div>
+<div class=" col-lg-1"></div>
+</div>
