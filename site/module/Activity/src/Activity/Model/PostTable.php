@@ -3,7 +3,6 @@
 namespace Activity\Model;
 
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\Sql\Predicate\Between;
 use Zend\Db\Sql\Select;
 
 class PostTable
@@ -19,42 +18,43 @@ class PostTable
 		return $resultSet -> buffer();
 	}
 
-	public function getPostByDate( $dateStart, $dateEnd ) {
-		$resultSet = $this -> tableGateway -> select( function(Select $select)use($dateStart, $dateEnd) {
+	public function getPostByUrl( $url ) {
+		$resultSet = $this -> tableGateway -> select( function(Select $select)use($url) {
 			$select -> where( array(
-				new Between( 'date', $dateStart, $dateEnd ),
+				'url' => $url,
 			));
-			$select -> order( 'class asc,date asc' );
-			$select -> join( 'user', 'user_id = ReserveTable.uid' );
-		} );
-		return $resultSet; //-> current();
-	}
-
-	public function getSingleRecord( $date, $class, $room ) {
-		$resultSet = $this -> tableGateway -> select(
-			array( 'date' => $date, 'class' => $class, 'room' => $room )
-		);
+		});	
+		if(!$resultSet -> current()){
+			throw new \Exception('No such post');
+		}
 		return $resultSet -> current();
 	}
+	
+	public function getPostById( $id ) {
+		$resultSet = $this -> tableGateway -> select( function(Select $select)use($id) {
+			$select -> where( array(
+				'id' => $id,
+			));
+		});		
+		return $resultSet -> current();
+	}
+	
 
 	public function savePost( Post $post ) {
 		$data = array(
-			'uid' => $post -> uid,
+			'uid' => (int)$post -> uid,
 			'category' => $post -> category,
 			'title' => $post -> title,
 			'content' => $post -> content,
-			'sticky_posts' => $post -> sticky_posts,
+			'sticky_posts' => (int)$post -> sticky_posts,
+			'url' => $post -> url,
 		);
 		//TODO: check if update
 		$this -> tableGateway -> insert( $data );
 	}
 
-	public function deleteRecord( Record $record ) {
-		$this -> tableGateway -> delete( array( 
-			'room' => $record -> room,
-			'date' => $record -> date,
-			'class' => $record -> class,			
-		) );
+	public function deleteRecord( Post $post ) {
+		$this -> tableGateway -> delete( array( 'id' => $post->id ) );	
 	}
 
 }

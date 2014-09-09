@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Activity\Model\Post;
+use Activity\Misc\Url;
 
 class ActivityController extends AbstractActionController
 {
@@ -22,18 +23,21 @@ class ActivityController extends AbstractActionController
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			if ($this->zfcUserAuthentication()->hasIdentity()) {
-				error_log('123');
 				$uid = $this->zfcUserAuthentication()->getIdentity()->getId();
 				$post = new Post();
 				$form->setData($request->getPost());
 				if ($form->isValid()) {
 					$post->exchangeArray($form->getData());
+					
 					$post->uid = $uid;
+					$post->url = Url::seoFriendlyUrl( $post -> title );
+					
 					$sm -> get('Activity\Model\PostTable')->savePost($post);
-					return $this->redirect()->toRoute('activity/post');
+					return $this->redirect()->toRoute('activity/article',array(
+						'article' => $post->url,
+					));
 				}
 			}else{
-								error_log('123ss');
 				return $this->redirect()->toRoute('zfcuser/login');
 			}
         }
@@ -43,8 +47,22 @@ class ActivityController extends AbstractActionController
 		));
 	}
 	
-	public function contentAction(){
-		return new ViewModel();
+	public function articleAction(){
+		$sm = $sm = $this -> getServiceLocator();
+		$url = $this-> params() -> fromRoute('article');
+		$table= $sm -> get('Activity\Model\PostTable');
+		
+		try{
+			$post = $table->getPostByUrl( $url );
+		}catch(\Exception $e){
+			if($e->getMessage() == 'No such post'){
+				return $this->redirect()->toRoute('activity');
+			}
+		}
+		
+		return new ViewModel(array(
+			'post' => $post,
+		));
 	}
 	
 	public function categoryAction(){

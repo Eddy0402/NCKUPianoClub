@@ -13,6 +13,7 @@ return array(
         'ZfcBase',
         'ZfcUser',
 		'User',
+		'EdpMarkdown',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

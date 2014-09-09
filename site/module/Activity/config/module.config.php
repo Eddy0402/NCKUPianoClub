@@ -39,23 +39,20 @@ return array(
 							),
 						),
 					),
-					'content' => array(
+					'article' => array(
 						'type' => 'Segment',
 						'options' => array(
-							'route' => '/:year/:month/:date/:article',
+							'route' => '/article/:article',
 							'constraints' => array(
-								'year' => '[0-9]*',
-								'month' => '[0-9]*',
-								'date' => '[0-9]*',
-								'article' => '[-a-zA-Z0-9]*',
+								'article' => '[^/]*',
 							),
 							'defaults' => array(
 								'controller' => 'Activity\Controller\Activity',
-								'action' => 'content',
+								'action' => 'article',
 							),
 						),
 					),
-					'content' => array(
+					'category' => array(
 						'type' => 'Segment',
 						'options' => array(
 							'route' => '/category/:category',

@@ -42,6 +42,7 @@ class NewPostForm extends Form
             'name' => 'category',
             'options' => array(
                 'label' => 'Category',
+				'empty_option' => 'Uncategorized',
                 'value_options' => array(
                     '1' => 'Uncategorized',
                     '2' => 'Activity',
