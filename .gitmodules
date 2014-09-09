@@ -1,0 +1,3 @@
+[submodule "zfc-user"]
+	path = site/vendor/zf-commons/zfc-user
+	ignore = all
