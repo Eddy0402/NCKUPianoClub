@@ -19,12 +19,16 @@ return array(
 	'router' => array(
 		'routes' => array(
 			'activity' => array(
-				'type' => 'Zend\Mvc\Router\Http\Literal',
+				'type' => 'Segment',
 				'options' => array(
-					'route' => '/activity',
+					'route' => '/activity[/:page]',
+                    'constraints' => array(
+                        'page' => '[0-9]+',
+                    ),
 					'defaults' => array(
 						'controller' => 'Activity\Controller\Activity',
 						'action' => 'index',
+                        'page' => '1',
 					),
 				),
 				'may_terminate' => true,

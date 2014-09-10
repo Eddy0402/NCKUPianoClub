@@ -21,6 +21,34 @@ class PostTable
 		$resultSet = $this -> tableGateway -> select();
 		return $resultSet -> buffer();
 	}
+    
+    public function getPageCount( $pagesize ){
+		$sql = new Sql( $this -> tableGateway -> getAdapter() );
+		$select = $sql -> select();
+        $select -> columns( array( 'num' => new Expression( 'COUNT(*)' ) ) );
+        $select -> from( 'activity' );
+        $num = $sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'num' ];
+        return floor( $num + $pagesize - 1 / $pagesize);
+    }
+    
+    public function fetchAllInPage($page, $pagesize) {
+		$resultSet = $this -> tableGateway -> select( function(Select $select)use($page, $pagesize) {
+            $select->order( 'time desc' );
+            $select->offset( ($page - 1) * $pagesize );
+            $select->limit( $pagesize );
+        });
+		return $resultSet -> buffer();
+	}
+    
+    public function fetchByCategoryInPage($category, $page, $pagesize){
+        $resultSet = $this -> tableGateway -> select( function(Select $select)use($category, $page, $pagesize) {
+            $select->where( array('category'=>$category) );
+            $select->order( 'time desc' );
+            $select->offset( ($page - 1) * $pagesize );
+            $select->limit( $pagesize );
+        });
+		return $resultSet -> buffer();
+    }
 
 	public function getPostByUrl( $url ) {
 		$resultSet = $this -> tableGateway -> select( function(Select $select)use($url) {
