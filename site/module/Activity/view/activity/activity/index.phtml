@@ -1,7 +1,7 @@
 <?php 
     $this->headTitle($this->translate('Acticity'));
 ?>
-<?php if($this->zfcUserIdentity()->getRole() == 1): ?>
+<?php if($this->zfcUserIdentity() && $this->zfcUserIdentity()->getRole() == 1): ?>
 <div class="container" style="padding-top: 10px;">
     <p>
         <a class="btn btn-default" href="<?php echo $this->url('activity/post'); ?>">
