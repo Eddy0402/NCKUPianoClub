@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NCKUPiano\n"
+"POT-Creation-Date: 2014-09-10 18:05+0800\n"
+"PO-Revision-Date: 2014-09-10 19:09+0800\n"
+"Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
+"Language-Team: NCKUPiano\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: translate;_\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ../view\n"
+"X-Poedit-SearchPath-1: ../src\n"
+
+#: ../src/Activity/Form/NewPostForm.php:37
+msgid "Title"
+msgstr "標題"
+
+#: ../src/Activity/Form/NewPostForm.php:45
+msgid "Content"
+msgstr "內容"
+
+#: ../src/Activity/Form/NewPostForm.php:53
+msgid "Category"
+msgstr "分類"
+
+#: ../src/Activity/Form/NewPostForm.php:56
+msgid "Uncategorized"
+msgstr "未分類"
+
+#: ../src/Activity/Form/NewPostForm.php:57
+msgid "Activity"
+msgstr "活動"
+
+#: ../src/Activity/Form/NewPostForm.php:58
+msgid "Lecture"
+msgstr "課程"
+
+#: ../src/Activity/Form/NewPostForm.php:68
+msgid "Is Sticky Post"
+msgstr "是否置頂"
+
+#: ../src/Activity/Form/NewPostForm.php:89
+msgid "Submit"
+msgstr "送出"
+
+#: ../view/activity/activity/post.phtml:9
+msgid "New Post"
+msgstr "新增文章"
+
+#: ../view/activity/activity/post.phtml:57
+msgid "Parse with Markdown."
+msgstr "使用Markdown進行排版。"
+
+#: ../view/activity/activity/post.phtml:58
+msgid "Learn How"
+msgstr "使用方法"
