@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZfcUser\n"
 "Report-Msgid-Bugs-To: zf-devteam@zend.com\n"
-"POT-Creation-Date: 2014-09-06 23:50+0800\n"
-"PO-Revision-Date: 2014-09-07 17:40+0800\n"
+"POT-Creation-Date: 2014-09-10 16:50+0800\n"
+"PO-Revision-Date: 2014-09-10 16:51+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: de_DE\n"
@@ -67,7 +67,7 @@ msgstr "送出"
 msgid "Sign In"
 msgstr "登入"
 
-#: language/msgIds.php:19 view/zfc-user/user/register.phtml:1
+#: language/msgIds.php:19 view/zfc-user/user/register.phtml:20
 msgid "Register"
 msgstr "註冊"
 
@@ -104,7 +104,7 @@ msgstr "歡迎回來"
 msgid "Sign Out"
 msgstr "登出"
 
-#: view/zfc-user/user/register.phtml:5
+#: view/zfc-user/user/register.phtml:4
 msgid "Registration is disabled"
 msgstr "註冊已關閉"
 
