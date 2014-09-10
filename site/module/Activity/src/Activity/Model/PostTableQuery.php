@@ -8,6 +8,9 @@
 
 namespace Activity\Model;
 
+use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Sql;
+
 /**
  * Description of PostTableQuery
  *
@@ -21,4 +24,15 @@ class PostTableQuery
 	public function __construct( Adapter $dbAdapter ) {
 		$this -> dbAdapter = $dbAdapter;
 	}
+    
+    public function getCategoryId($title){
+        $sql = new Sql( $this -> dbAdapter );
+		$select = $sql -> select();
+		$select -> columns( array('id') );
+		$select -> where( array(
+			'title' => $title,
+		) );
+		$select -> from( 'activity_category' );
+		return $sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'id' ];
+    }
 }

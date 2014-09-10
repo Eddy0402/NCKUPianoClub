@@ -28,22 +28,32 @@ class PostTable
         $select -> columns( array( 'num' => new Expression( 'COUNT(*)' ) ) );
         $select -> from( 'activity' );
         $num = $sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'num' ];
-        return floor( $num + $pagesize - 1 / $pagesize);
+        return floor( ($num + $pagesize - 1) / $pagesize);
     }
     
     public function fetchAllInPage($page, $pagesize) {
 		$resultSet = $this -> tableGateway -> select( function(Select $select)use($page, $pagesize) {
-            $select->order( 'time desc' );
+            $select->order( array('sticky_posts desc','time desc'));
             $select->offset( ($page - 1) * $pagesize );
             $select->limit( $pagesize );
         });
 		return $resultSet -> buffer();
 	}
     
+    public function getCategoryPageCount($category, $pagesize ){
+		$sql = new Sql( $this -> tableGateway -> getAdapter() );
+		$select = $sql -> select();
+        $select -> columns( array( 'num' => new Expression( 'COUNT(*)' ) ) );
+        $select->where( array('category'=>$category) );
+        $select -> from( 'activity' );
+        $num = $sql -> prepareStatementForSqlObject( $select ) -> execute() -> current()[ 'num' ];
+        return floor( ($num + $pagesize - 1) / $pagesize);
+    }
+    
     public function fetchByCategoryInPage($category, $page, $pagesize){
         $resultSet = $this -> tableGateway -> select( function(Select $select)use($category, $page, $pagesize) {
             $select->where( array('category'=>$category) );
-            $select->order( 'time desc' );
+            $select->order( array('sticky_posts desc','time desc'));
             $select->offset( ($page - 1) * $pagesize );
             $select->limit( $pagesize );
         });

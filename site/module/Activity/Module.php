@@ -4,6 +4,7 @@ namespace Activity;
 
 use Activity\Model\Post;
 use Activity\Model\PostTable;
+use Activity\Model\PostTableQuery;
 use Activity\Form\NewPostForm;
 use Activity\Form\NewPostFormInputFilter;
 

@@ -7,8 +7,12 @@
 			<div class="text-muted text-center"> By <?=$post->uid?> | <?= $post->time?></div>
 			<hr class="divider" />
 			<?=$this->markdown( $this->escapeHTML($post->content) )?>
-			<div class="divider"></div>
-			<?=$post->url?>
+			<hr class="divider" />
+            <?php if($this->zfcUserIdentity()->getRole() == 1): ?>
+                <a class="btn btn-default" href="<?php echo $this->url('activity/edit',array('article'=>$post->url)); ?>">
+                    Edit
+                </a>
+            <?php endif;?>
 		</div>
 	</div>
 	<hr class="divider" />

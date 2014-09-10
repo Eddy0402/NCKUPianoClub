@@ -1,0 +1,44 @@
+<?php 
+    $this->headTitle($this->translate('Acticity') . ' - ' . $category);
+?>
+
+<div class="container">
+    <div class="page-header"><h1 class="text-center"><?=$category?></h1></div>
+    <div class="col-lg-10 col-lg-offset-1" role="main">
+        <?php while($post = $this->dataSet->current()): ?>
+            <p style="margin-bottom: 60px;" id="<?=$post->id;?>">
+                <h2><?=$post->title;?></h2>
+                <hr class="divider">
+                
+                <blockquote><?=$this->markdown( $this->escapeHTML($post->summary) )?></blockquote>
+                
+                <div class="text-muted text-right">
+                    <a href="/activity/article/<?=$post->url?>"><?php echo $this->translate('Read More...');?></a>
+                    By <?=$post->uid?> | <?= $post->time?>
+                </div>
+            </p>
+
+        <?php $dataSet->next();?>
+        <?php endwhile;?>
+        <div class="text-center">
+            <ul class="pagination">
+                <li class="<?php if($page - 1 == 0):?>disabled<?php endif;?>">
+                    <a href="<?php echo $this->url('activity/category',array('page'=>$page - 1,'category'=>$category))?>">&laquo;</a>
+                </li>
+                <?php $pagestart = ($this->page - 1) - ($this -> page - 1 ) % 10 + 1 ?>
+                <?php $pageend = min(array($this-> pagecount,$pagestart + 9))?>
+                <?php for($p = $pagestart ; $p <= $pageend; $p++):?>
+                  <li class='<?=($page == $p ? 'active' :'')?>'>
+                    <a href="<?php echo $this->url('activity/category',array('page'=>$p,'category'=>$category))?>">
+                        <?php echo $p?>
+                    </a>
+                </li>
+                <?php endfor;?>
+                <li class="<?php if($page == $pagecount):?>disabled<?php endif;?>">
+                    <a href="<?php echo $this->url('activity/category',array('page'=>$page + 1,'category'=>$category))?>">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

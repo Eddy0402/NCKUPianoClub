@@ -37,6 +37,14 @@ class NewPostForm extends Form
                 'label' => _('Title'),
             ),
             'type'  => 'Text',
+        ));		
+        
+		$this->add(array(
+            'name' => 'summary',
+            'options' => array(
+                'label' => _('Summary'),
+            ),
+            'type'  => 'Textarea',
         ));
 		
 		$this->add(array(
@@ -46,7 +54,8 @@ class NewPostForm extends Form
             ),
             'type'  => 'Textarea',
         ));
-						
+
+			
 		$this->add(array(
             'name' => 'category',
             'options' => array(

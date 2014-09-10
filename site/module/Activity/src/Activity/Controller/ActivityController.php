@@ -130,7 +130,33 @@ class ActivityController extends AbstractActionController
     }
 
     public function categoryAction() {
-        return new ViewModel();
+        $title = $this -> params() -> fromRoute( 'category' );
+        $page = $this -> params() -> fromRoute( 'page' );
+        $sm = $sm = $this -> getServiceLocator();
+        $table = $sm -> get( 'Activity\Model\PostTable' );
+        $query = $sm -> get( 'Activity\Model\PostTableQuery' );
+
+        $categoryId = $query -> getCategoryId( $title );
+        if ( !$categoryId ) {
+            $this -> redirect() -> toRoute( 'activity' );
+        }
+        if ( $page <= 0 ) {
+            return $this -> redirect() -> toRoute( 'activity' );
+        }
+
+        $dataSet = $table -> fetchByCategoryInPage( $categoryId, $page, PAGE_SIZE );
+        $pagecount = $table -> getCategoryPageCount( $categoryId, PAGE_SIZE );
+
+        if ( !$dataSet -> current() ) {
+            return $this -> redirect() -> toRoute( 'activity' );
+        }
+
+        return new ViewModel( array(
+            'category' => $title,
+            'dataSet' => $dataSet,
+            'page' => $page,
+            'pagecount' => $pagecount,
+            ) );
     }
 
 }

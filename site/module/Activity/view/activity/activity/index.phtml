@@ -1,7 +1,15 @@
 <?php 
     $this->headTitle($this->translate('Acticity'));
 ?>
-
+<?php if($this->zfcUserIdentity()->getRole() == 1): ?>
+<div class="container" style="padding-top: 10px;">
+    <p>
+        <a class="btn btn-default" href="<?php echo $this->url('activity/post'); ?>">
+        New Post
+        </a>
+    </p>
+</div>
+<?php endif;?>
 <div class="container">
     <div class="col-lg-9" role="main">
         <?php while($post = $this->dataSet->current()): ?>
@@ -22,19 +30,19 @@
         <div class="text-center">
             <ul class="pagination">
                 <li class="<?php if($page - 1 == 0):?>disabled<?php endif;?>">
-                    <a href="<?php echo $this->url('activity',array('page'=>$page - 1))?>">&laquo;</a>
+                    <a href="<?php echo $this->url('activity/page',array('page'=>$page - 1))?>">&laquo;</a>
                 </li>
                 <?php $pagestart = ($this->page - 1) - ($this -> page - 1 ) % 10 + 1 ?>
                 <?php $pageend = min(array($this-> pagecount,$pagestart + 9))?>
                 <?php for($p = $pagestart ; $p <= $pageend; $p++):?>
                   <li class='<?=($page == $p ? 'active' :'')?>'>
-                    <a href="<?php echo $this->url('activity',array('page'=>$p))?>">
+                    <a href="<?php echo $this->url('activity/page',array('page'=>$p))?>">
                         <?php echo $p?>
                     </a>
                 </li>
                 <?php endfor;?>
                 <li class="<?php if($page == $pagecount):?>disabled<?php endif;?>">
-                    <a href="<?php echo $this->url('activity',array('page'=>$page + 1))?>">&raquo;</a>
+                    <a href="<?php echo $this->url('activity/page',array('page'=>$page + 1))?>">&raquo;</a>
                 </li>
             </ul>
         </div>
@@ -46,7 +54,10 @@
                 <ul>
                 <?php $this->dataSet->rewind(); ?>
                 <?php while($post = $this->dataSet->current()): ?>
-                    <li><a href="#<?=$post->id;?>"><?=$post->title;?></a></li>
+                    <li class="list-unstyled">
+                        <span class="glyphicon glyphicon-tag"></span>
+                        <a href="#<?=$post->id;?>"><?=$post->title;?></a>
+                    </li>
                 <?php $dataSet->next();?>
                 <?php endwhile;?>
                 </ul>
@@ -54,7 +65,18 @@
             <p>
                 <h3><?php echo $this->translate('Categories')?></h3>
                 <ul>
-                    
+                    <li class="list-unstyled">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <a href="<?php echo $this->url('activity/category',array('category'=>'未分類文章'))?>">未分類文章</a>
+                    </li>
+                    <li class="list-unstyled">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <a href="<?php echo $this->url('activity/category',array('category'=>'活動'))?>">活動</a>
+                    </li>
+                    <li class="list-unstyled">
+                        <span class="glyphicon glyphicon-list"></span>
+                        <a href="<?php echo $this->url('activity/category',array('category'=>'社課資訊'))?>">社課資訊</a>
+                    </li>
                 </ul>
             </p>
             
