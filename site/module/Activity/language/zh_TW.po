@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NCKUPiano\n"
-"POT-Creation-Date: 2014-09-10 18:05+0800\n"
-"PO-Revision-Date: 2014-09-10 19:09+0800\n"
+"POT-Creation-Date: 2014-09-11 03:16+0800\n"
+"PO-Revision-Date: 2014-09-11 03:16+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: NCKUPiano\n"
 "Language: zh_TW\n"
@@ -46,6 +46,22 @@ msgstr "是否置頂"
 #: ../src/Activity/Form/NewPostForm.php:89
 msgid "Submit"
 msgstr "送出"
+
+#: ../view/activity/activity/index.phtml:2
+msgid "Acticity"
+msgstr "活動"
+
+#: ../view/activity/activity/index.phtml:15
+msgid "Read More..."
+msgstr "繼續閱讀..."
+
+#: ../view/activity/activity/index.phtml:45
+msgid "Jump to:"
+msgstr "跳至："
+
+#: ../view/activity/activity/index.phtml:55
+msgid "Categories"
+msgstr "分類"
 
 #: ../view/activity/activity/post.phtml:9
 msgid "New Post"

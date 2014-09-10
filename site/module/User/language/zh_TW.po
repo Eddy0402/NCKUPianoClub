@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZfcUser\n"
 "Report-Msgid-Bugs-To: zf-devteam@zend.com\n"
-"POT-Creation-Date: 2014-09-10 16:50+0800\n"
-"PO-Revision-Date: 2014-09-10 16:51+0800\n"
+"POT-Creation-Date: 2014-09-11 04:40+0800\n"
+"PO-Revision-Date: 2014-09-11 04:42+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: de_DE\n"
@@ -15,11 +15,11 @@ msgstr ""
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: language/msgIds.php:6
+#: language/msgIds.php:6 view/zfc-user/user/login.phtml:21
 msgid "Username"
 msgstr "登入名稱"
 
-#: language/msgIds.php:7
+#: language/msgIds.php:7 view/zfc-user/user/index.phtml:30
 msgid "Email"
 msgstr "E-Mail"
 
@@ -31,7 +31,7 @@ msgstr "新E-Mail"
 msgid "Verify New Email"
 msgstr "確認新Email"
 
-#: language/msgIds.php:10
+#: language/msgIds.php:10 view/zfc-user/user/index.phtml:26
 msgid "Display Name"
 msgstr "姓名"
 
@@ -63,7 +63,7 @@ msgstr "請輸入以下文字"
 msgid "Submit"
 msgstr "送出"
 
-#: language/msgIds.php:18 view/zfc-user/user/login.phtml:1
+#: language/msgIds.php:18 view/zfc-user/user/login.phtml:12
 msgid "Sign In"
 msgstr "登入"
 
@@ -83,49 +83,125 @@ msgstr "找到了相關紀錄"
 msgid "Authentication failed. Please try again."
 msgstr "登入失敗，請重試"
 
-#: view/zfc-user/user/changepassword.phtml:1
+#: view/zfc-user/user/changepassword.phtml:11
 #, php-format
 msgid "Change Password for %s"
 msgstr "為 %s 更改密碼"
 
-#: view/zfc-user/user/changepassword.phtml:3
+#: view/zfc-user/user/changepassword.phtml:63
 msgid "Password changed successfully."
 msgstr "密碼成功更改"
 
-#: view/zfc-user/user/changepassword.phtml:5
+#: view/zfc-user/user/changepassword.phtml:65
 msgid "Unable to update your password. Please try again."
 msgstr "無法更新密碼，請重試"
 
-#: view/zfc-user/user/index.phtml:6
+#: view/zfc-user/user/index.phtml:14
 msgid "Welcome back"
 msgstr "歡迎回來"
 
-#: view/zfc-user/user/index.phtml:7
+#: view/zfc-user/user/index.phtml:17
 msgid "Sign Out"
 msgstr "登出"
+
+#: view/zfc-user/user/index.phtml:34
+msgid "Card Id"
+msgstr "磁卡編號"
+
+#: view/zfc-user/user/index.phtml:38
+msgid "Role"
+msgstr "會員類型"
+
+#: view/zfc-user/user/index.phtml:41
+msgid "Normal Member"
+msgstr "一般社員"
+
+#: view/zfc-user/user/index.phtml:42
+msgid "Admin"
+msgstr "現任幹部"
+
+#: view/zfc-user/user/index.phtml:48
+msgid "State"
+msgstr "登入方式"
+
+#: view/zfc-user/user/index.phtml:51
+msgid "Not Activated"
+msgstr "未啟用帳號"
+
+#: view/zfc-user/user/index.phtml:52
+msgid "Site Password"
+msgstr "本站密碼"
+
+#: view/zfc-user/user/index.phtml:53
+msgid "NCKU Website"
+msgstr "成大網站"
+
+#: view/zfc-user/user/index.phtml:68
+msgid "ReservePianoRoom"
+msgstr "琴點系統"
+
+#: view/zfc-user/user/index.phtml:69
+msgid ""
+"Reserve the piano room for next week, see which room is available this week."
+msgstr "預借/取消下週的琴房，每週最多7節課，同時也可以瀏覽每一週的借用情形。"
+
+#: view/zfc-user/user/index.phtml:73 view/zfc-user/user/index.phtml:89
+#: view/zfc-user/user/index.phtml:104
+msgid "Enter"
+msgstr "進入"
+
+#: view/zfc-user/user/index.phtml:84
+msgid "Change Password"
+msgstr "更改密碼"
+
+#: view/zfc-user/user/index.phtml:85
+msgid ""
+"Change password that stored in this site, if the password is link to NCKU, "
+"change it at NCKU website instead."
+msgstr ""
+"更換存於本站資料庫的密碼，若在註冊時使用了成功入口的帳號密碼，則密碼將連結至"
+"成大網站的資料庫，請前往成功入口更換。"
+
+#: view/zfc-user/user/index.phtml:99
+msgid "Change Email"
+msgstr "更改Email"
+
+#: view/zfc-user/user/index.phtml:100
+msgid ""
+"The email field in this site has no affect at this time, We may have new "
+"feed in future."
+msgstr ""
+"目前在此網站中，Email欄位並沒有作用，我們在未來可能利用Email來進行活動通知，"
+"到時候可以設定是否訂閱活動通知。"
 
 #: view/zfc-user/user/register.phtml:4
 msgid "Registration is disabled"
 msgstr "註冊已關閉"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/zfc-user/user/register.phtml:41
+msgid ""
+"If you use NCKU's password, this account wiil be automatically connect to "
+"NCKU's database."
+msgstr "若使用成功入口密碼，將會自動連結成大資料庫。"
+
+#: view/zfc-user/user/login.phtml:56
 msgid "Not registered?"
 msgstr "尚未加入?"
 
-#: view/zfc-user/user/login.phtml:31
+#: view/zfc-user/user/login.phtml:56
 msgid "Sign up!"
 msgstr "加入鋼琴社!"
 
-#: view/zfc-user/user/changeemail.phtml:1
+#: view/zfc-user/user/changeemail.phtml:11
 #, php-format
 msgid "Change Email for %s"
 msgstr "為 %s 更改Email"
 
-#: view/zfc-user/user/changeemail.phtml:3
+#: view/zfc-user/user/changeemail.phtml:65
 msgid "Email address changed successfully."
 msgstr "成功修改Email"
 
-#: view/zfc-user/user/changeemail.phtml:5
+#: view/zfc-user/user/changeemail.phtml:67
 msgid "Unable to update your email address. Please try again."
 msgstr "無法更新Email，請重試"
 
