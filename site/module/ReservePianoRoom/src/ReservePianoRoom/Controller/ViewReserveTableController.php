@@ -9,10 +9,16 @@ class ViewReserveTableController extends AbstractActionController
 {
 
 	public function indexAction() {
+        if ( !$this -> zfcUserAuthentication() -> hasIdentity() ) {
+            return $this -> redirect() -> toRoute( 'zfcuser/login' );
+        }
 		return new ViewModel();
 	}
 
 	public function viewAction() {
+        if ( !$this -> zfcUserAuthentication() -> hasIdentity() ) {
+            return $this -> redirect() -> toRoute( 'zfcuser/login' );
+        }
 		$page = $this -> params() -> fromRoute( 'page', 0 );
 		$room = $this -> params() -> fromRoute( 'room', 0 );
 

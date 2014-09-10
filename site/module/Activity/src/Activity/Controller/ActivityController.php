@@ -8,33 +8,36 @@ use Activity\Model\Post;
 use Activity\Misc\Url;
 
 const PAGE_SIZE = 5;
-    
+
 class ActivityController extends AbstractActionController
 {
-    
+
     public function indexAction() {
         $page = $this -> params() -> fromRoute( 'page' );
-        if($page <= 0){
+        if ( $page <= 0 ) {
             return $this -> redirect() -> toRoute( 'activity' );
         }
         $sm = $sm = $this -> getServiceLocator();
         $table = $sm -> get( 'Activity\Model\PostTable' );
-        
+
         $dataSet = $table -> fetchAllInPage( $page, PAGE_SIZE );
         $pagecount = $table -> getPageCount( PAGE_SIZE );
-        
-        if(!$dataSet->current()){
+
+        if ( !$dataSet -> current() ) {
             return $this -> redirect() -> toRoute( 'activity' );
         }
 
         return new ViewModel( array(
-            'dataSet'   => $dataSet,
-            'page'      => $page,
+            'dataSet' => $dataSet,
+            'page' => $page,
             'pagecount' => $pagecount,
-        ) );
+            ) );
     }
 
     public function postAction() {
+        if ( !$this -> isAdmin() ) {
+            return $this -> redirect() -> toRoute( 'zfcuser/login' );
+        }
         $sm = $this -> getServiceLocator();
         $form = $sm -> get( 'Activity\Form\NewPostForm' );
         $request = $this -> getRequest();
@@ -44,7 +47,7 @@ class ActivityController extends AbstractActionController
             return new ViewModel( array(
                 'form' => $form,
                 'form_action' => 'post',
-            ) );
+                ) );
         }
     }
 
@@ -66,10 +69,13 @@ class ActivityController extends AbstractActionController
 
         return new ViewModel( array(
             'post' => $post,
-        ) );
+            ) );
     }
 
     public function editAction() {
+        if ( !$this -> isAdmin() ) {
+            return $this -> redirect() -> toRoute( 'zfcuser/login' );
+        }
         $sm = $sm = $this -> getServiceLocator();
         $url = $this -> params() -> fromRoute( 'article' );
         $table = $sm -> get( 'Activity\Model\PostTable' );
@@ -91,30 +97,35 @@ class ActivityController extends AbstractActionController
             $view = new ViewModel( array(
                 'form' => $form,
                 'form_action' => 'edit',
-            ) );
+                ) );
             $view -> setTemplate( 'activity/activity/post.phtml' );
             return $view;
         }
     }
 
     private function saveArticle( $form, $request, $sm ) {
-        if ( $this -> zfcUserAuthentication() -> hasIdentity() ) {
-            $uid = $this -> zfcUserAuthentication() -> getIdentity() -> getId();
-            $post = new Post();
-            $form -> setData( $request -> getPost() );
-            if ( $form -> isValid() ) {
-                $post -> exchangeArray( $form -> getData() );
+        $uid = $this -> zfcUserAuthentication() -> getIdentity() -> getId();
+        $post = new Post();
+        $form -> setData( $request -> getPost() );
+        if ( $form -> isValid() ) {
+            $post -> exchangeArray( $form -> getData() );
 
-                $post -> uid = $uid;
-                $post -> url = Url::seoFriendlyUrl( $post -> title );
+            $post -> uid = $uid;
+            $post -> url = Url::seoFriendlyUrl( $post -> title );
 
-                $sm -> get( 'Activity\Model\PostTable' ) -> savePost( $post );
-                return $this -> redirect() -> toRoute( 'activity/article', array(
-                        'article' => $post -> url,
+            $sm -> get( 'Activity\Model\PostTable' ) -> savePost( $post );
+            return $this -> redirect() -> toRoute( 'activity/article', array(
+                    'article' => $post -> url,
                 ) );
-            }
+        }
+    }
+
+    private function isAdmin() {
+        if ( $this -> zfcUserAuthentication() -> hasIdentity() &&
+            $this -> zfcUserAuthentication() -> getIdentity() -> getRole() == 1 ) {
+            return true;
         } else {
-            return $this -> redirect() -> toRoute( 'zfcuser/login' );
+            return false;
         }
     }
 
