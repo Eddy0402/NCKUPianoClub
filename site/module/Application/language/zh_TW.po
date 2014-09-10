@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-04 00:56+0800\n"
-"PO-Revision-Date: 2014-09-07 23:47+0800\n"
+"POT-Creation-Date: 2014-09-11 06:09+0800\n"
+"PO-Revision-Date: 2014-09-11 06:11+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -23,48 +23,48 @@ msgstr "登入"
 msgid "Sign in"
 msgstr "登入"
 
-#: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:95
+#: ../view/layout/layout.phtml:6 ../view/layout/layout.phtml:143
 #: ../view/application/index/index.phtml:4
 msgid "NCKU Piano Club"
 msgstr "成功大學鋼琴社"
 
-#: ../view/layout/layout.phtml:42
+#: ../view/layout/layout.phtml:90
 msgid "Piano Club"
 msgstr "鋼琴社"
 
-#: ../view/layout/layout.phtml:47 ../view/application/index/index.phtml:17
+#: ../view/layout/layout.phtml:95 ../view/application/index/index.phtml:16
 msgid "Activity"
 msgstr "最新活動"
 
-#: ../view/layout/layout.phtml:48
+#: ../view/layout/layout.phtml:96
 msgid "Overview"
 msgstr "簡介"
 
-#: ../view/layout/layout.phtml:50
+#: ../view/layout/layout.phtml:100
 msgid "Sign up!"
 msgstr "加入鋼琴社"
 
-#: ../view/layout/layout.phtml:58
+#: ../view/layout/layout.phtml:106
 msgid "Login"
 msgstr "登入"
 
-#: ../view/layout/layout.phtml:78
+#: ../view/layout/layout.phtml:123
 msgid "Profile"
 msgstr "個人資料"
 
-#: ../view/layout/layout.phtml:79
+#: ../view/layout/layout.phtml:124
 msgid "Piano Room"
 msgstr "琴點系統"
 
-#: ../view/layout/layout.phtml:80
+#: ../view/layout/layout.phtml:125
 msgid "Sheet Music"
 msgstr "琴譜"
 
-#: ../view/layout/layout.phtml:82
+#: ../view/layout/layout.phtml:127
 msgid "Settings"
 msgstr "設定"
 
-#: ../view/layout/layout.phtml:83
+#: ../view/layout/layout.phtml:128
 msgid "Logout"
 msgstr "登出"
 
@@ -137,14 +137,47 @@ msgstr "解析為： %s"
 msgid "GitHub"
 msgstr "Github"
 
-#: ../view/application/index/index.phtml:20
-#: ../view/application/index/index.phtml:30
-msgid " "
-msgstr " "
+#: ../view/application/index/index.phtml:17
+msgid "Activity description"
+msgstr "官方網站最新資訊，<br />包含活動資訊、社課資訊等等重要公告。<br />"
 
-#: ../view/application/index/index.phtml:27
-msgid "Recent Activity"
-msgstr "最新活動"
+#: ../view/application/index/index.phtml:21
+#: ../view/application/index/index.phtml:33
+#: ../view/application/index/index.phtml:45
+msgid "Go"
+msgstr "前往"
+
+#: ../view/application/index/index.phtml:28
+msgid "Facebook club"
+msgstr "Facebook社團"
+
+#: ../view/application/index/index.phtml:29
+msgid "Join Our Facebook Club..."
+msgstr ""
+"加入我們的Facebook社團，<br />與其他社員交流、互動，<br />向幹部反應問題，或"
+"是參與各式表演的演奏。"
+
+#: ../view/application/index/index.phtml:40
+msgid "ReservePianoRoom"
+msgstr "琴點系統"
+
+#: ../view/application/index/index.phtml:41
+msgid "Reserve Piano Room description"
+msgstr "預借琴房，<br />或是察看目前琴房借用情形，<br />(需登入)"
+
+#: ../view/application/index/about.phtml:1
+#: ../view/application/index/about.phtml:5
+msgid "About"
+msgstr "簡介"
+
+#~ msgid "FB"
+#~ msgstr "Facebook社團"
+
+#~ msgid " "
+#~ msgstr " "
+
+#~ msgid "Recent Activity"
+#~ msgstr "最新活動"
 
 #~ msgid "Skeleton Application"
 #~ msgstr "空專案"

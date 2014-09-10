@@ -8,26 +8,62 @@
 		-->
 	</div>	
 </div>
-
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container text-center">
 	<div class="row">
-        <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        <div class="col-lg-4 index-col">
+            <i class="fa fa-calendar" style="font-size: 9em;"></i>
+            <h2><?php echo $this->translate('Activity') ?></h2>
+            <p><?php echo $this->translate('Activity description')?></p>
+            <p>
+                <div class="text-center" style="position:absolute; bottom: -30px;left:0;right:0;margin-left:auto;margin-right:auto;">
+                    <a href="<?php echo $this -> url( 'activity' ) ?>" class="btn btn-default">
+                        <?php echo $this->translate('Go') ?> »
+                    </a>
+                </div>
+            </p>
         </div>
-        <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-          <h2>Heading</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        <div class="col-lg-4 index-col">
+            <!--<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="position: absolute; width: 140px; height: 140px;">-->
+            <i class="fa fa-facebook-square" style="font-size: 9em;"></i>
+            <h2><?php echo $this->translate('Facebook club') ?></h2>
+            <p><?php echo $this->translate('Join Our Facebook Club...')?></p>
+            <p>
+                <div class="text-center" style="position:absolute; bottom: -30px;left:0;right:0;margin-left:auto;margin-right:auto;">
+                    <a href="https://www.facebook.com/groups/nckupiano/" class="btn btn-default" target="new">
+                        <?php echo $this->translate('Go') ?> »
+                    </a>
+                </div>
+            </p>
         </div>
-        <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+        <div class="col-lg-4 index-col">
+            <i class="fa fa-music" style="font-size: 9em;"></i>
+            <h2><?php echo $this->translate('ReservePianoRoom') ?></h2>
+            <p><?php echo $this->translate('Reserve Piano Room description')?></p>
+            <p>
+                <div class="text-center" style="position:absolute; bottom: -30px;left:0;right:0;margin-left:auto;margin-right:auto;">
+                    <a href="<?php echo $this -> url( 'ReservePianoRoom' ) ?>" class="btn btn-default">
+                        <?php echo $this->translate('Go') ?> »
+                    </a>
+                </div>
+            </p>
         </div>
       </div>
 </div>	
+
+<script>
+function equalHeight(group) {    
+    tallest = 0;    
+    group.each(function() {       
+        thisHeight = $(this).height();       
+        if(thisHeight > tallest) {          
+            tallest = thisHeight;       
+        }    
+    });    
+    group.each(function() { $(this).height(tallest); });
+} 
+
+$(document).ready(function() {   
+    equalHeight($(".index-col")); 
+});
+</script>
