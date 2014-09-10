@@ -37,6 +37,9 @@ $form->setAttribute('role','form');
 					<div class="col-sm-10">
 						<?php $element -> setAttribute('class','form-control'); ?>
 						<?php echo $this->formInput($element) . $this->formElementErrors($element) ?>
+                        <span class="help-block">
+                            <?php echo $this->translate('If you use NCKU\'s password, this account wiil be automatically connect to NCKU\'s database.')?>
+                        </span>
 					</div>
 				</div>
 			<?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
