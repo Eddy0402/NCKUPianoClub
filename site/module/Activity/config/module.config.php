@@ -39,6 +39,19 @@ return array(
 							),
 						),
 					),
+					'edit' => array(
+						'type' => 'Segment',
+						'options' => array(
+							'route' => '/edit/:article',
+							'constraints' => array(
+								'article' => '[^/]*',
+							),
+							'defaults' => array(
+								'controller' => 'Activity\Controller\Activity',
+								'action' => 'edit',
+							),
+						),
+					),
 					'article' => array(
 						'type' => 'Segment',
 						'options' => array(
@@ -57,10 +70,7 @@ return array(
 						'options' => array(
 							'route' => '/category/:category',
 							'constraints' => array(
-								'year' => '[0-9]*',
-								'month' => '[0-9]*',
-								'date' => '[0-9]*',
-								'article' => '[-a-zA-Z0-9]*',
+								'category' => '[^/]*',
 							),
 							'defaults' => array(
 								'controller' => 'Activity\Controller\Activity',

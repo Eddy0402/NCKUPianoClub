@@ -20,12 +20,21 @@ class NewPostForm extends Form
 {
 	public function __construct( InputFilterInterface $inputFilter) {
 		parent::__construct('new_post');
-		
+
 		$this-> setInputFilter($inputFilter);
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array(
+                'value' => '0'
+            )
+        ));
+        
 		$this->add(array(
             'name' => 'title',
             'options' => array(
-                'label' => 'Title',
+                'label' => _('Title'),
             ),
             'type'  => 'Text',
         ));
@@ -33,7 +42,7 @@ class NewPostForm extends Form
 		$this->add(array(
             'name' => 'content',
             'options' => array(
-                'label' => 'Content',
+                'label' => _('Content'),
             ),
             'type'  => 'Textarea',
         ));
@@ -41,12 +50,12 @@ class NewPostForm extends Form
 		$this->add(array(
             'name' => 'category',
             'options' => array(
-                'label' => 'Category',
+                'label' => _('Category'),
 				'empty_option' => 'Uncategorized',
                 'value_options' => array(
-                    '1' => 'Uncategorized',
-                    '2' => 'Activity',
-					'3' => 'Lecture',
+                    '1' => _('Uncategorized'),
+                    '2' => _('Activity'),
+					'3' => _('Lecture'),
                 ),
             ),
 			'type' => 'Zend\Form\Element\Radio',
@@ -56,7 +65,7 @@ class NewPostForm extends Form
 			'type' => 'CheckBox',
 			'name' => 'sticky_posts',
 			'options' => array(
-                'label' => 'Is Sticky Post',
+                'label' => _('Is Sticky Post'),
                 'use_hidden_element' => true,
                 'checked_value' => '1',
                 'unchecked_value' => '0',
@@ -77,8 +86,15 @@ class NewPostForm extends Form
             'name' => 'send',
             'type'  => 'Submit',
             'attributes' => array(
-                'value' => 'Submit',
+                'value' => _('Submit'),
             ),
-        ));		
+        ));	
+
 	}
+	
+}
+
+/* Translate warpper */
+function _($str){
+	return $str;
 }

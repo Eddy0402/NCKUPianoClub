@@ -32,13 +32,20 @@ class Module
 			'factories' => array(
 				'Activity\Model\PostTable' => function($sm) {
 					$tableGateway = $sm -> get('Activity\Model\PostTableGateway');
-					return $table = new PostTable($tableGateway);
+                    $alterUrlTableGateway = $sm -> get('Activity\Model\AlterUrlPostTableGateway');                    
+					return $table = new PostTable($tableGateway, $alterUrlTableGateway);
 				},
 				'Activity\Model\PostTableGateway' => function($sm){
 					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');
 					$resultSetPrototype = new ResultSet();
 					$resultSetPrototype ->setArrayObjectPrototype(new Post());
 					return new TableGateway('activity',$dbAdapter,null,$resultSetPrototype);
+				},
+                'Activity\Model\AlterUrlPostTableGateway' => function($sm){
+					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');
+					$resultSetPrototype = new ResultSet();
+					$resultSetPrototype ->setArrayObjectPrototype(new Post());
+					return new TableGateway('activity_alterurl',$dbAdapter,null,$resultSetPrototype);
 				},
 				'Activity\Model\PostTableQuery' => function($sm){
 					$dbAdapter = $sm -> get('Zend\Db\Adapter\Adapter');

@@ -1,14 +1,12 @@
 <?php
 $form = $this->form;
-$form->setAttribute('action', $this->url('activity/post'))->prepare();
+$form->setAttribute('action', "" )->prepare();
 $form->setAttribute('method', 'post');
 $form->setAttribute('class','form-horizontal');
 $form->setAttribute('role','form');
 ?>
 
 <h1 class="text-center"> <?=$this -> translate('New Post');?> </h1>
-
-<div class="container">
 <div class="col-lg-1"></div>
 <div class="main-text col-lg-10">
 
@@ -53,10 +51,16 @@ $form->setAttribute('role','form');
 					<?php echo $this->formLabel($element) ?>
 					<div class="col-sm-10">
 						<?php $element -> setAttribute('class','form-control'); ?>
-						<?php $element -> setAttribute('style','height:250px;'); ?>
+						<?php $element -> setAttribute('style','height:250px;resize:vertical;'); ?>
 						<?php echo $this->formTextarea($element)  ?>
+						<div class="text-muted text-center">
+							<?php echo $this->translate('Parse with Markdown.')?>
+							<a href="http://markdown.tw/" target="new"><?php echo $this->translate('Learn How')?></a>						
+						</div>
 					</div>
 				</div>
+    		<?php elseif ($element instanceof Zend\Form\Element\Hidden): ?>
+				<?php echo $this->formElement($element) ?>
 			<?php else: ?>
 				<div class="form-group">
 					<?php $element -> setLabelAttributes(array('class'=>'col-sm-2 control-label')); ?>
@@ -75,4 +79,3 @@ $form->setAttribute('role','form');
 		
 </div>
 <div class=" col-lg-1"></div>
-</div>

@@ -19,32 +19,15 @@ class ActivityController extends AbstractActionController
 	public function postAction(){
 		$sm = $sm = $this -> getServiceLocator();
 		$form = $sm -> get('Activity\Form\NewPostForm');
-		
-		$request = $this->getRequest();
+		$request = $this -> getRequest();
 		if ($request->isPost()) {
-			if ($this->zfcUserAuthentication()->hasIdentity()) {
-				$uid = $this->zfcUserAuthentication()->getIdentity()->getId();
-				$post = new Post();
-				$form->setData($request->getPost());
-				if ($form->isValid()) {
-					$post->exchangeArray($form->getData());
-					
-					$post->uid = $uid;
-					$post->url = Url::seoFriendlyUrl( $post -> title );
-					
-					$sm -> get('Activity\Model\PostTable')->savePost($post);
-					return $this->redirect()->toRoute('activity/article',array(
-						'article' => $post->url,
-					));
-				}
-			}else{
-				return $this->redirect()->toRoute('zfcuser/login');
-			}
+			return $this -> saveArticle($form, $request, $sm);
+        }else{		
+            return new ViewModel(array(
+                'form'   => $form,
+                'form_action' => 'post',
+            ));
         }
-		
-		return new ViewModel(array(
-			'form' => $form,
-		));
 	}
 	
 	public function articleAction(){
@@ -53,17 +36,69 @@ class ActivityController extends AbstractActionController
 		$table= $sm -> get('Activity\Model\PostTable');
 		
 		try{
-			$post = $table->getPostByUrl( $url );
-		}catch(\Exception $e){
-			if($e->getMessage() == 'No such post'){
-				return $this->redirect()->toRoute('activity');
-			}
+		$post = $table->getPostByUrl( $url );
+		}  catch ( \Exception $ex) {
+			error_log( $ex ->getMessage() );
+			return $this->redirect()->toRoute('activity');
 		}
+        
+        if(!$post){
+            return $this->redirect()->toRoute('activity');
+        }
 		
 		return new ViewModel(array(
 			'post' => $post,
 		));
 	}
+	
+	public function editAction(){
+		$sm = $sm = $this -> getServiceLocator();
+		$url = $this-> params() -> fromRoute('article');
+		$table= $sm -> get('Activity\Model\PostTable');
+		$form = $sm -> get('Activity\Form\NewPostForm');		
+		$request = $this -> getRequest();
+ 		if ($request->isPost()) {
+			return $this -> saveArticle($form, $request, $sm);
+        }else{	
+            try{
+                $post = $table->getPostByUrl( $url );
+            }  catch ( \Exception $ex) {
+                error_log( $ex ->getMessage() );
+                return $this->redirect()->toRoute('activity');
+            }
+            if(!$post){
+                return $this->redirect()->toRoute('activity');
+            }
+            $form -> bind($post);
+            $view = new ViewModel(array(
+                'form'   => $form,
+                'form_action' => 'edit',
+            ));
+            $view -> setTemplate('activity/activity/post.phtml');
+            return $view;
+        }
+	}
+    
+    private function saveArticle($form,$request,$sm){
+        if ($this->zfcUserAuthentication()->hasIdentity()) {
+            $uid = $this->zfcUserAuthentication()->getIdentity()->getId();
+            $post = new Post();
+            $form -> setData($request->getPost());
+            if ($form->isValid()) {
+                $post->exchangeArray($form->getData());
+
+                $post->uid = $uid;
+                $post->url = Url::seoFriendlyUrl( $post -> title );
+
+                $sm -> get('Activity\Model\PostTable')->savePost($post);
+                return $this->redirect()->toRoute('activity/article',array(
+                    'article' => $post->url,
+                ));
+            }
+        }else{
+            return $this->redirect()->toRoute('zfcuser/login');
+        }
+    }
 	
 	public function categoryAction(){
 		return new ViewModel();
