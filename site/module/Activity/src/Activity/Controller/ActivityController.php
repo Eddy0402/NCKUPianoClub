@@ -113,6 +113,10 @@ class ActivityController extends AbstractActionController
             $post -> uid = $uid;
             $post -> url = Url::seoFriendlyUrl( $post -> title );
 
+            $htmlEntitiess = new \Zend\Filter\HtmlEntities();
+            $post -> content = $htmlEntitiess -> filter( $post -> content );
+            $post -> summary = $htmlEntitiess -> filter( $post -> summary );
+
             $sm -> get( 'Activity\Model\PostTable' ) -> savePost( $post );
             return $this -> redirect() -> toRoute( 'activity/article', array(
                     'article' => $post -> url,

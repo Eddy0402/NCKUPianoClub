@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="main-text col-lg-10 col-lg-offset-1">
 			<h1 class="text-center"> <?=$post->title;?></h1>
-			<div class="text-muted text-center"> By <?=$post->uid?> | <?= $post->time?></div>
+			<div class="text-muted text-center"> By <?=$post->userData->getDisplayName()?> | <?= $post->time?></div>
 			<hr class="divider" />
 			<?=$this->markdown( $this->escapeHTML($post->content) )?>
 			<hr class="divider" />

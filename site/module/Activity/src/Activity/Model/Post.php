@@ -2,6 +2,8 @@
 
 namespace Activity\Model;
 
+use User\Model\User;
+
 /**
  * Description of Post
  *
@@ -31,8 +33,9 @@ class Post
         $this -> time = (!empty( $data[ 'time' ] )) ? $data[ 'time' ] : null;
         $this -> sticky_posts = (!empty( $data[ 'sticky_posts' ] )) ? $data[ 'sticky_posts' ] : null;
         $this -> url = (!empty( $data[ 'url' ] )) ? $data[ 'url' ] : null;
-        //$this -> userData = new User();
-        //$this -> userData -> exchangeArray($data);
+        
+        $this -> userData = new User();
+        $this -> userData -> exchangeArray($data);
     }
 
     public function getArrayCopy() {

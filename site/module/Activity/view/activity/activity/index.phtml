@@ -21,7 +21,7 @@
                 
                 <div class="text-muted text-right">
                     <a href="activity/article/<?=$post->url?>"><?php echo $this->translate('Read More...');?></a>
-                    By <?=$post->uid?> | <?= $post->time?>
+                    By <?=$post->userData->getDisplayName()?> | <?= $post->time?>
                 </div>
             </p>
 

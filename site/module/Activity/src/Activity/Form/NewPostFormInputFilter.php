@@ -22,7 +22,7 @@ class NewPostFormInputFilter extends InputFilter
 			'name'     => 'title',
 			'required' => true,
 		));
-		
+
 		$this->add(	array(
 			'name'     => 'content',
 			'required' => true,
