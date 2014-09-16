@@ -1,3 +1,16 @@
+<style>
+    .index-col{
+        padding-bottom: 40px;
+    }
+    .index-btn{
+        position:absolute;
+        bottom: 0px;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
+    }
+</style>
 
 <div class="jumbotron" style="background-image: url(img/jumbotron_bg.jpg); background-size: 100%;">
 	<div class="container">
@@ -14,45 +27,39 @@
         <div class="col-lg-4 index-col">
             <i class="fa fa-calendar" style="font-size: 9em;"></i>
             <h2><?php echo $this->translate('Activity') ?></h2>
-            <p><?php echo $this->translate('Activity description')?></p>
-            <p>
-                <div class="text-center" style="position:absolute; bottom: -30px;left:0;right:0;margin-left:auto;margin-right:auto;">
-                    <a href="<?php echo $this -> url( 'activity' ) ?>" class="btn btn-default">
-                        <?php echo $this->translate('Go') ?> »
-                    </a>
-                </div>
-            </p>
+            <?php echo $this->translate('Activity description')?>
+            <div class="index-btn text-center">
+                <a href="<?php echo $this -> url( 'activity' ) ?>" class="btn btn-default">
+                    <?php echo $this->translate('Go') ?> »
+                </a>
+            </div>
         </div>
         <div class="col-lg-4 index-col">
             <!--<img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="position: absolute; width: 140px; height: 140px;">-->
             <i class="fa fa-facebook-square" style="font-size: 9em;"></i>
             <h2><?php echo $this->translate('Facebook club') ?></h2>
-            <p><?php echo $this->translate('Join Our Facebook Club...')?></p>
-            <p>
-                <div class="text-center" style="position:absolute; bottom: -30px;left:0;right:0;margin-left:auto;margin-right:auto;">
-                    <a href="https://www.facebook.com/groups/nckupiano/" class="btn btn-default" target="new">
-                        <?php echo $this->translate('Go') ?> »
-                    </a>
-                </div>
-            </p>
+            <?php echo $this->translate('Join Our Facebook Club...')?>
+            <div class="index-btn text-center">
+                <a href="https://www.facebook.com/groups/nckupiano/" class="btn btn-default" target="new">
+                    <?php echo $this->translate('Go') ?> »
+                </a>
+            </div>
         </div>
         <div class="col-lg-4 index-col">
             <i class="fa fa-music" style="font-size: 9em;"></i>
             <h2><?php echo $this->translate('ReservePianoRoom') ?></h2>
-            <p><?php echo $this->translate('Reserve Piano Room description')?></p>
-            <p>
-                <div class="text-center" style="position:absolute; bottom: -30px;left:0;right:0;margin-left:auto;margin-right:auto;">
-                    <a href="<?php echo $this -> url( 'ReservePianoRoom' ) ?>" class="btn btn-default">
-                        <?php echo $this->translate('Go') ?> »
-                    </a>
-                </div>
-            </p>
+            <?php echo $this->translate('Reserve Piano Room description')?>
+            <div class="index-btn text-center">
+                <a href="<?php echo $this -> url( 'ReservePianoRoom' ) ?>" class="btn btn-default">
+                    <?php echo $this->translate('Go') ?> »
+                </a>
+            </div>
         </div>
       </div>
 </div>	
 
 <script>
-function equalHeight(group) {    
+function equalHeightInDesktop(group) {
     tallest = 0;    
     group.each(function() {       
         thisHeight = $(this).height();       
@@ -64,6 +71,17 @@ function equalHeight(group) {
 } 
 
 $(document).ready(function() {   
-    equalHeight($(".index-col")); 
+    if($(window).width() >= 1280) equalHeightInDesktop($(".index-col")); 
+});
+
+$(window).resize(function() {
+    if ($(this).width() >= 1280) {
+        equalHeightInDesktop($(".index-col")); 
+    }
+    else if ($(this).width() < 1280 && $(this).width()>= 980) {
+        $(".index-col").each(function() {
+            $(this).height('100%');
+        });
+    }
 });
 </script>
