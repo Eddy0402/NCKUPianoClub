@@ -6,76 +6,12 @@ $this -> headScript() -> appendFile('/confirm-popup/js/main.js');
 $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 ?>
 
-<script>
-	var content_0 = -1;
-	var content_1 = 0;
-	var content_2 = 1;
-	var room = 1;
-
-	$(function() {
-
-		// Slide load
-		$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
-		$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
-		$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
-
-		$("#myCarousel").on('slide.bs.carousel', function(e) {
-			var slideFrom = $(this).find('.active').index();
-			var slideTo = $(e.relatedTarget).index();
-			if (slideTo === 0) {
-				content_2 = content_0 - 1;
-				content_1 = content_0 + 1;
-				if (slideFrom !== 1)
-					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
-				if (slideFrom !== 2)
-					$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
-			} else if (slideTo === 1) {
-				content_0 = content_1 - 1;
-				content_2 = content_1 + 1;
-				if (slideFrom !== 0)
-					$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
-				if (slideFrom !== 2)
-					$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
-			} else {
-				content_0 = content_2 + 1;
-				content_1 = content_2 - 1;
-				if (slideFrom !== 0)
-					$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
-				if (slideFrom !== 1)
-					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
-			}
-		});
-
-		// Room Switch
-		$("#room1").click(function() {
-			reload(1);
-		});
-		$("#room2").click(function() {
-			reload(2);
-		});
-		$("#room3").click(function() {
-			reload(3);
-		});
-	});
-	function reload(newroom) {
-		$("#room" + room).toggleClass("btn-clicked");
-		room = newroom;
-		$("#room" + room).toggleClass("btn-clicked");
-		$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
-		$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
-		$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
-	}
-	function Reload() {
-		reload(room);
-	}
-</script> 
-
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
 	<div class="carousel-inner">
 		<div class="item">
 			<img src="/img/jumbotron_bg.jpg" alt="">
 			<div class="container" >
-				<div class="carousel-caption">
+                <div class="carousel-caption" style="padding-bottom: 10px;right: 15%;left: 15%;">
 					<p><div id="content-0" class="b"></div></p>
 				</div>
 			</div>
@@ -83,7 +19,7 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 		<div class="item active">
 			<img src="/img/jumbotron_bg.jpg" alt="">
 			<div class="container">
-				<div class="carousel-caption">
+				<div class="carousel-caption" style="padding-bottom: 10px;right: 15%;left: 15%;">
 					<p><div id="content-1"></div></p>
 				</div>
 			</div>
@@ -91,7 +27,7 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 		<div class="item">
 			<img src="/img/jumbotron_bg.jpg" alt="">
 			<div class="container">
-				<div class="carousel-caption">
+				<div class="carousel-caption" style="padding-bottom: 10px;right: 15%;left: 15%;">
 					<p><div id="content-2"></div></p>
 				</div>
 			</div>
@@ -102,29 +38,26 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 </div>
 
 
-<div class="main-text  text-center">
+<div class="main-text text-center">
 	<h1>
 <?php echo $this -> translate( 'Reserve Piano Room' ); ?>
-	</h1>		
-	<div class="">
-		<a class="btn btn-clear btn-sm btn-min-block btn-clicked" id="room1"><?php echo $this -> translate( 'Room 1' ); ?></a>
-		<a class="btn btn-clear btn-sm btn-min-block" id="room2"><?php echo $this -> translate( 'Room 2' ); ?></a>
-		<a class="btn btn-clear btn-sm btn-min-block" id="room3"><?php echo $this -> translate( 'Room 3' ); ?></a>
-	</div>
+	</h1>
+    <div class="table-responsive center-block" style="margin-right: 15% !important;margin-left: 15% !important;width: 70%">
+        <table class="table">
+            <tr>
+                <td>
+                    <a class="btn btn-clear btn-sm btn-min-block btn-clicked" id="room1"><?php echo $this -> translate( 'Room 1' ); ?></a>
+                </td>
+                <td>
+                    <a class="btn btn-clear btn-sm btn-min-block" id="room2"><?php echo $this -> translate( 'Room 2' ); ?></a>
+                </td>
+                <td>
+                    <a class="btn btn-clear btn-sm btn-min-block" id="room3"><?php echo $this -> translate( 'Room 3' ); ?></a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
-<!--
-<a href="#" class="cd-popup-trigger">View Pop-up</a>
-
-<div class="cd-popup" role="alert">
-	<div class="cd-popup-container">
-		<p>Are you sure you want to delete this element?</p>
-		<ul class="cd-buttons">
-			<li><a href="#0">Yes</a></li>
-			<li><a href="#0">No</a></li>
-		</ul>
-		<a href="#0" class="cd-popup-close img-replace">Close</a>
-	</div> <!-- cd-popup-container -->
-</div>-->
 
 <style>
 
@@ -132,7 +65,6 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 	/* Padding below the footer and lighter body text */
 
 	body {
-		padding-bottom: 40px;
 		color: #5a5a5a;
 	}
 
@@ -275,3 +207,67 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 
 
 </style>
+
+<script>
+	var content_0 = -1;
+	var content_1 = 0;
+	var content_2 = 1;
+	var room = 1;
+
+	$(function() {
+
+		// Slide load
+		$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
+		$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
+		$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
+
+		$("#myCarousel").on('slide.bs.carousel', function(e) {
+			var slideFrom = $(this).find('.active').index();
+			var slideTo = $(e.relatedTarget).index();
+			if (slideTo === 0) {
+				content_2 = content_0 - 1;
+				content_1 = content_0 + 1;
+				if (slideFrom !== 1)
+					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
+				if (slideFrom !== 2)
+					$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
+			} else if (slideTo === 1) {
+				content_0 = content_1 - 1;
+				content_2 = content_1 + 1;
+				if (slideFrom !== 0)
+					$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
+				if (slideFrom !== 2)
+					$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
+			} else {
+				content_0 = content_2 + 1;
+				content_1 = content_2 - 1;
+				if (slideFrom !== 0)
+					$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
+				if (slideFrom !== 1)
+					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
+			}
+		});
+
+		// Room Switch
+		$("#room1").click(function() {
+			reload(1);
+		});
+		$("#room2").click(function() {
+			reload(2);
+		});
+		$("#room3").click(function() {
+			reload(3);
+		});
+	});
+	function reload(newroom) {
+		$("#room" + room).toggleClass("btn-clicked");
+		room = newroom;
+		$("#room" + room).toggleClass("btn-clicked");
+		$("#content-0").load("<?= $this->url();?>" + "/page/" + content_0 + "/room/" + room);
+		$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
+		$("#content-2").load("<?= $this->url();?>" + "/page/" + content_2 + "/room/" + room);
+	}
+	function Reload() {
+		reload(room);
+	}
+</script> 

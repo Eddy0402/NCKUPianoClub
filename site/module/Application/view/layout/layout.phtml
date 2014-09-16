@@ -88,7 +88,7 @@
                         <a class="navbar-brand" href="<?php echo $this -> url( 'home' ) ?>"><img src="<?php echo $this -> basePath( 'img/zf2-logo.png' ) ?>" style="width: 10px; height: 20px;" alt="Zend Framework 2"/>&nbsp;<?php echo $this -> translate( 'Piano Club' ) ?></a>
 					</div>
 
-					<div class="collapse navbar-collapse">
+					<div class="navbar-collapse text-center">
 						<ul class="nav navbar-nav">
 							<li><a href="<?php echo $this -> url( 'activity' ) ?>"><?php echo $this -> translate( 'Activity' ) ?></a></li>
 							<li><a href="<?php echo $this -> url( 'about' ) ?>"><?php echo $this -> translate( 'Overview' ) ?></a></li>
@@ -138,7 +138,8 @@
 		</div>
 		<div id="footer">
 			<div class="text-muted text-center">
-				<p>&copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?></p>
+				<p>&copy; <?php echo date( 'Y' ) ?> <?php echo $this -> translate( 'NCKU Piano Club' ) ?>　‧　<a class="text-muted" href="https://github.com/Eddy0402/NCKUPianoClub" target="_blank"><?php echo $this -> translate( 'GitHub' ) ?> repo</a></p>
+
 			</div>
 		</div>
 <?php echo $this -> inlineScript() ?>
