@@ -1,0 +1,116 @@
+<?php
+	const CLASS_START = 1;
+	const CLASS_END = 14;
+
+$dateStringsYMD = generateDateStrings( $first, $last, 'Y-m-d' );
+$dateStringsMD = generateDateHeader( $first, $last );
+$RecordItems = processData( $resultset, $room, $this );
+?>
+
+<style>
+    table{
+        text-align: center;
+        border: 1px solid black;
+        border-collapse: collapse;        
+    }
+    table tr{
+        text-align: center;
+        border: 1px solid black;
+    }
+    table tr th{
+        text-align: center;
+        border: 1px solid black;
+    }
+    table tr td{
+        text-align: center;
+        border: 1px solid black;
+    }
+</style>
+
+<table style="width:100%; height: 100%">
+		<tr>
+			<th><?php echo $this -> translate( 'Time \\ Date' ); ?></th>
+			<?php foreach ( $dateStringsMD as $date) : ?>
+				<th>
+					<?php echo $date; ?>
+				</th>
+			<?php endforeach; ?>
+		</tr>
+
+		<?php for ( $class = CLASS_START; $class <= CLASS_END; $class++ ): ?>
+			<tr>
+				<th><?php echo getClassTime( $class ) ?></th>
+				<?php foreach ( $dateStringsYMD as $date ) : ?>
+					<?php $data_key = sprintf( 'd/%s/c/%d/r/%d/', $date, $class, $room ); ?>
+					<?php $data_display = $date . '，' . getClassTime( $class ); ?>		
+					<?php if ( array_key_exists( $date, $RecordItems )
+                        && array_key_exists( $class, $RecordItems[ $date ] )
+                        && array_key_exists( $room, $RecordItems[ $date ][ $class ] )): ?>
+                            <td>
+                                <div><?php echo $RecordItems[ $date ][ $class ][ $room ][ 'displayName' ]; ?></div>
+                            </td>
+					<?php else: ?>									
+						<td> </td>
+					<?php endif; ?>
+                <?php endforeach; ?>	
+			</tr>
+<?php endfor; ?>
+	</table>
+
+<?php
+
+function generateDateStrings( $first, $last, $format ) {
+	$dateStrings = array();
+	for ( $date = clone $first; $date <= $last; $date -> modify( '+1 day' ) ) {
+		array_push( $dateStrings, $date -> format( $format ) );
+	}
+	return $dateStrings;
+}
+
+function generateDateHeader( $first, $last ) {
+	$dateStrings = array();
+    $weekdes = array('禮拜天','禮拜一','禮拜二','禮拜三','禮拜四','禮拜五','禮拜六');
+	for ( $date = clone $first; $date <= $last; $date -> modify( '+1 day' ) ) {
+		array_push( $dateStrings, $weekdes[$date -> format( 'w' )].$date -> format( 'm-d' ) );
+	}
+	return $dateStrings;
+}
+
+function processData( $resultset, $room, $view ) {
+	$current = $resultset -> current();
+	$RecordItems = array();
+	while ( $current ) {
+		if ( $current -> room == $room || $current -> uid == $view -> zfcUserIdentity() -> getId() ) {
+			if ( !array_key_exists( $current -> date, $RecordItems ) ) {
+				$RecordItems[ $current -> date ] = array();
+			}
+			if ( !array_key_exists( $current -> class, $RecordItems[ $current -> date ] ) ) {
+				$RecordItems[ $current -> date ][ $current -> class ] = array();
+			}
+			$RecordItems[ $current -> date ][ $current -> class ][ $current -> room ] = array(
+				'reserve_id' => $current -> reserve_id,
+				'room' => $current -> room,
+				'uid' => $current -> uid,
+				'displayName' => $current -> userData -> getDisplayName(),
+				'flag' => $current -> flag,
+				'comment' => $current -> comment,
+			);
+			$RecordItems[ $current -> date ][ $current -> class ][ 'room' ] = $current -> room;
+		}
+		$resultset -> next();
+		$current = $resultset -> current();
+	}
+	return $RecordItems;
+}
+
+function getClassTime( $class ) {
+	return sprintf( '%02d:00 ~ %02d:00', $class + 7, $class + 8 );
+}
+
+function getRoomText( $room, $view ) {
+	switch ($room){
+		case 1: return $view -> translate('Room 1');
+		case 2: return $view -> translate('Room 2');
+		case 3: return $view -> translate('Room 3');
+	}
+}

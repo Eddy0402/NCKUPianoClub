@@ -14,6 +14,12 @@ class ViewReserveTableController extends AbstractActionController
         }
 		return new ViewModel();
 	}
+    
+    public function printAction(){
+        $viewModel = $this -> viewAction();
+        $viewModel -> setTemplate('reserve-piano-room/view-reserve-table/print');
+        return $viewModel;
+    }
 
 	public function viewAction() {
         if ( !$this -> zfcUserAuthentication() -> hasIdentity() ) {

@@ -47,6 +47,22 @@ return array(
 							),
 						),
 					),
+                    'PrintReserveTable' => array(
+                        'type' => 'Segment',
+						'options' => array(
+							'route' => '/print/:page[/room/:room]',
+							'constraints' => array(
+								'page'   => '[-0-9]*',
+								'room'   => '[1-3]',
+							),
+							'defaults' => array(
+								'controller' => 'ReservePianoRoom\Controller\ViewReserveTable',
+								'action' => 'print',
+								'page' => 0,
+								'room' => 1,
+							),
+						),
+                    ),
 					'ModifyReserveTable' => array(
 						'type' => 'Segment',
 						'options' => array(
