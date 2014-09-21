@@ -94,7 +94,7 @@
 							<li><a href="<?php echo $this -> url( 'about' ) ?>"><?php echo $this -> translate( 'Overview' ) ?></a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<?php if(! $this->zfcUserIdentity()): ?>
+							<?php if(false && ! $this->zfcUserIdentity()): ?>
 								<li><a href="<?php echo $this->url('zfcuser/register') . ($this->redirect ? '?redirect='.$this->redirect : '') ?>"><?php echo $this->translate('Sign up!'); ?></a></li>
 							<?php endif?>
 							<li class="dropdown navbar-right">	
