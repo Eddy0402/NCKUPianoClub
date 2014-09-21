@@ -40,8 +40,11 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 
 <div class="main-text text-center">
 	<h1>
-<?php echo $this -> translate( 'Reserve Piano Room' ); ?>
+<?php echo $this -> translate( 'Reserve Piano Room' ); ?>    <a class="btn btn-clear btn-sm" id="print" href="#"><?php echo $this->translate('Print')?></a>
 	</h1>
+    <?php if($isAdmin):?>
+
+    <?php endif;?>
     <div class="table-responsive center-block" style="margin-right: 15% !important;margin-left: 15% !important;width: 70%">
         <table class="table">
             <tr>
@@ -247,7 +250,7 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 					$("#content-1").load("<?= $this->url();?>" + "/page/" + content_1 + "/room/" + room);
 			}
 		});
-
+		
 		// Room Switch
 		$("#room1").click(function() {
 			reload(1);
@@ -257,6 +260,9 @@ $this -> headScript() -> appendFile('/confirm-popup/js/modernizr.js');
 		});
 		$("#room3").click(function() {
 			reload(3);
+		});
+        $("#print").click(function() {			
+            window.open("<?= $this->url();?>" + "/print/" + $("#myCarousel").find('.active').index() + "/room/" + room, 'print','width=500,height=500');
 		});
 	});
 	function reload(newroom) {

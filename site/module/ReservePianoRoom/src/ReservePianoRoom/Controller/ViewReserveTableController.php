@@ -12,7 +12,7 @@ class ViewReserveTableController extends AbstractActionController
         if ( !$this -> zfcUserAuthentication() -> hasIdentity() ) {
             return $this -> redirect() -> toRoute( 'zfcuser/login' );
         }
-		return new ViewModel();
+		return new ViewModel(array('isAdmin' => $this-> isAdmin(),));
 	}
     
     public function printAction(){
