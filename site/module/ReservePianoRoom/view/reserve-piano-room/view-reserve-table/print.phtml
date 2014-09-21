@@ -28,6 +28,7 @@ $RecordItems = processData( $resultset, $room, $this );
 </style>
 
 <table style="width:100%; height: 100%">
+    <tr><td colspan="8"><h2 style="margin-bottom: 0px;"><?php echo getRoomText( $room, $this ) ?></h2></td></tr>
 		<tr>
 			<th><?php echo $this -> translate( 'Time \\ Date' ); ?></th>
 			<?php foreach ( $dateStringsMD as $date) : ?>
