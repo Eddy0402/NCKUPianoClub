@@ -40,7 +40,7 @@ class ViewReserveTableController extends AbstractActionController
 			'first' => $first,
 			'last' => $last,
 			'room' => $room,
-			'reservable' => ($page == "1" ? "true" : "false"),
+			'reservable' => (($page == "1" ? "true" : "false") || $this-> isAdmin()),
 		) );
 
 		$viewModel -> setTerminal( true );
@@ -62,7 +62,15 @@ class ViewReserveTableController extends AbstractActionController
 		}
 		return $this -> ReserveTableQuery;
 	}
-
+    private function isAdmin() {
+        if ( $this -> zfcUserAuthentication() -> hasIdentity() &&
+            $this -> zfcUserAuthentication() -> getIdentity() -> getRole() == 1 ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 	protected $ReserveTable;
 	protected $ReserveTableQuery;
 
