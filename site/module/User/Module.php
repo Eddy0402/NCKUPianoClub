@@ -45,12 +45,10 @@ class Module
 					'type'  => 'Text',					
 				),
 			));
-			$form -> remove('passwordVerify');
 		});
 		
 		$events->attach('ZfcUser\Form\RegisterFilter','init', function($e) {
 			$filter = $e->getTarget();	
-			$filter -> remove('passwordVerify');
 			$filter -> remove('username');
 			$filter -> add(array(
                 'name'       => 'username',
@@ -88,7 +86,6 @@ class Module
 			$form = $e->getParam('form');
 			$user = $e->getParam('user');
 			$data = $form -> getData();
-			error_log($data->getPassword());
 			$imap_return = imap_open('{mail.ncku.edu.tw/ssl/novalidate-cert}INBOX',$data->getUserName(),$data->getPassword());
 			if(imap_ping($imap_return) == 1){
 				$user->setPassword( Rand::getString(32, 'abcdefghijklmnopqrstuvwxyz0123456789_-.', true) );
