@@ -43,6 +43,12 @@ class ModifyReserveTableController extends AbstractActionController
             $response -> setContent( 'Only one room in a time.' );
             return $response;
         }
+        
+        if(($date < $first-> format( 'Y-m-d' ) || $date > $last-> format( 'Y-m-d' )) && !$this->isAdmin()){
+            $response = $this -> getResponse();
+            $response -> setContent( 'You can only reserve in next week.' );
+            return $response;            
+        }
 
         $Table = $this -> getReserveTable();
         if ( $Table -> isRoomReserved( $date, $class, $room ) == false ) {

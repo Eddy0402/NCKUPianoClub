@@ -30,7 +30,7 @@ class ViewReserveTableController extends AbstractActionController
 
 		$first = new \DateTime( 'this week' );
 		$last = new \DateTime( 'this week +6 days' );
-
+        
 		$first -> modify( ( string ) ($page * 7) . ' day' );
 		$last -> modify( ( string ) ($page * 7) . 'day ' );
 
@@ -40,7 +40,7 @@ class ViewReserveTableController extends AbstractActionController
 			'first' => $first,
 			'last' => $last,
 			'room' => $room,
-			'reservable' => (($page == "1" ? "true" : "false") || $this-> isAdmin()),
+			'reservable' => ( ($page == "1" ? true : false) || $this-> isAdmin() ) ? 'true' : 'false',
 		) );
 
 		$viewModel -> setTerminal( true );
