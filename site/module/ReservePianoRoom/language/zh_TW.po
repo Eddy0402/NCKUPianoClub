@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ZendSkeletonApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-07 23:31+0800\n"
-"PO-Revision-Date: 2014-09-07 23:31+0800\n"
+"POT-Creation-Date: 2014-10-06 12:22+0800\n"
+"PO-Revision-Date: 2014-10-06 12:23+0800\n"
 "Last-Translator: Eddy Wu <yukkcake@gmail.com>\n"
 "Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
 "Language: en_US\n"
@@ -15,29 +15,65 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../view/reserve-piano-room/view-reserve-table/index.phtml:2
-#: ../view/reserve-piano-room/view-reserve-table/index.phtml:113
-msgid "Reserve Piano Room"
-msgstr "琴點系統"
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:33
+#: ../view/reserve-piano-room/view-reserve-table/view.phtml:16
+msgid "Time \\ Date"
+msgstr "時間 \\ 日期"
 
-#: ../view/reserve-piano-room/view-reserve-table/index.phtml:116
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:79
+msgid "Sunday"
+msgstr "禮拜天"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:80
+msgid "Monday"
+msgstr "禮拜一"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:81
+msgid "Tuesday"
+msgstr "禮拜二"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:82
+msgid "Wednesday"
+msgstr "禮拜三"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:83
+msgid "Thursday"
+msgstr "禮拜四"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:84
+msgid "Friday"
+msgstr "禮拜五"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:85
+msgid "Saturday"
+msgstr "禮拜六"
+
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:126
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:52
 #: ../view/reserve-piano-room/view-reserve-table/view.phtml:192
 msgid "Room 1"
 msgstr "琴房一"
 
-#: ../view/reserve-piano-room/view-reserve-table/index.phtml:117
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:127
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:55
 #: ../view/reserve-piano-room/view-reserve-table/view.phtml:193
 msgid "Room 2"
 msgstr "琴房二"
 
-#: ../view/reserve-piano-room/view-reserve-table/index.phtml:118
+#: ../view/reserve-piano-room/view-reserve-table/print.phtml:128
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:58
 #: ../view/reserve-piano-room/view-reserve-table/view.phtml:194
 msgid "Room 3"
 msgstr "琴房三"
 
-#: ../view/reserve-piano-room/view-reserve-table/view.phtml:16
-msgid "Time \\ Date"
-msgstr "時間 \\ 日期"
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:2
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:43
+msgid "Reserve Piano Room"
+msgstr "琴點系統"
+
+#: ../view/reserve-piano-room/view-reserve-table/index.phtml:43
+msgid "Print"
+msgstr "列印"
 
 #: ../view/reserve-piano-room/view-reserve-table/view.phtml:35
 #: ../view/reserve-piano-room/view-reserve-table/view.phtml:47

@@ -3,7 +3,7 @@
 	const CLASS_END = 14;
 
 $dateStringsYMD = generateDateStrings( $first, $last, 'Y-m-d' );
-$dateStringsMD = generateDateHeader( $first, $last );
+$dateStringsMD = generateDateHeader( $first, $last, $this );
 $RecordItems = processData( $resultset, $room, $this );
 ?>
 
@@ -73,9 +73,17 @@ function generateDateStrings( $first, $last, $format ) {
 	return $dateStrings;
 }
 
-function generateDateHeader( $first, $last ) {
+function generateDateHeader( $first, $last, $view  ) {
 	$dateStrings = array();
-    $weekdes = array('禮拜天','禮拜一','禮拜二','禮拜三','禮拜四','禮拜五','禮拜六');
+    $weekdes = array(
+        $view -> translate('Sunday'),
+        $view -> translate('Monday'),
+        $view -> translate('Tuesday'),
+        $view -> translate('Wednesday'),
+        $view -> translate('Thursday'),
+        $view -> translate('Friday'),
+        $view -> translate('Saturday'),
+        );
 	for ( $date = clone $first; $date <= $last; $date -> modify( '+1 day' ) ) {
 		array_push( $dateStrings, $weekdes[$date -> format( 'w' )].$date -> format( 'm-d' ) );
 	}
