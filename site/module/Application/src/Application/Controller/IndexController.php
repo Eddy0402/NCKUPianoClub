@@ -18,8 +18,10 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
-	
-	public function aboutAction(){
-		return new ViewModel();	
-	}
+    public function aboutAction(){
+        return new ViewModel();
+    }
+    public function borrowAction(){
+        return new ViewModel();
+    }
 }

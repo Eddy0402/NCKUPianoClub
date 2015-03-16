@@ -30,6 +30,16 @@ return array(
 					),
 				),
 			),
+			'borrow' => array(
+				'type' => 'Zend\Mvc\Router\Http\Literal',
+				'options' => array(
+					'route' => '/borrow',
+					'defaults' => array(
+						'controller' => 'Application\Controller\Index',
+						'action' => 'borrow',
+					),
+				),
+			),
 		),
 	),
 	'translator' => array(
